@@ -41,4 +41,13 @@ npm test
 
 Playwright 覆盖桌面 `1440×900` 与移动 `375×812`，检查 16:9 舞台缩放、全部 19 页溢出、键盘翻页、触摸滑动、提纲跳页、全屏按钮、演讲提示、关键叙事、完整报告下载可达性、console、network 与截图。
 
+生产环境验收：
+
+```powershell
+$env:PRODUCTION_URL='https://infinity-light.github.io/fde-report-launch/'
+npx playwright test --config=playwright.production.config.js
+```
+
+完整验收证据见 [verification.md](verification.md)。
+
 `prefers-reduced-motion` 会把转场压缩到 1ms。非当前页使用 `aria-hidden` 与 `inert` 隔离，控制项提供 ARIA 标签和可见焦点。

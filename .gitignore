@@ -1,4 +1,5 @@
 node_modules/
 playwright-report/
+playwright-report-production/
 test-results/
 .DS_Store

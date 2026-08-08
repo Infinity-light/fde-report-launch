@@ -22,7 +22,7 @@ test("桌面发布会动线、键盘、提纲、全屏与全部内容页可用",
   if (testInfo.project.name !== "desktop-chromium") return;
   const telemetry = observePage(page);
 
-  await page.goto("/#slide-1", { waitUntil: "networkidle" });
+  await page.goto("./#slide-1", { waitUntil: "networkidle" });
   await expect(page.locator(".slide")).toHaveCount(19);
   await expect(page.getByRole("heading", { name: /全球.*FDE.*发展研究报告/ })).toBeVisible();
   await expect(page.locator(".cover-image")).toHaveJSProperty("complete", true);
@@ -78,7 +78,7 @@ test("移动端固定16:9舞台自动缩放、触摸滑动与点击导航可用"
   if (testInfo.project.name !== "mobile-chromium") return;
   const telemetry = observePage(page);
 
-  await page.goto("/#slide-1", { waitUntil: "networkidle" });
+  await page.goto("./#slide-1", { waitUntil: "networkidle" });
   const stageBox = await page.locator("#stage").boundingBox();
   expect(stageBox).not.toBeNull();
   expect(stageBox.width).toBeLessThanOrEqual(375.5);
@@ -117,26 +117,36 @@ test("移动端固定16:9舞台自动缩放、触摸滑动与点击导航可用"
   expect(telemetry.badResponses).toEqual([]);
 });
 
-test("关键叙事与完整报告下载链接可达", async ({ page, request }) => {
+test("关键叙事与完整报告下载链接可达", async ({ page }) => {
   const telemetry = observePage(page);
-  await page.goto("/#slide-4", { waitUntil: "networkidle" });
+  await page.goto("./#slide-4", { waitUntil: "networkidle" });
 
   await expect(page.locator(".slide.is-active")).toContainText("直接进入真实业务环境");
-  await page.goto("/#slide-12", { waitUntil: "networkidle" });
+  await page.goto("./#slide-12", { waitUntil: "networkidle" });
   await expect(page.locator(".slide.is-active")).toContainText("共享生产团队");
-  await page.goto("/#slide-18", { waitUntil: "networkidle" });
+  await page.goto("./#slide-18", { waitUntil: "networkidle" });
   await expect(page.locator(".slide.is-active")).toContainText("持续结果责任");
 
-  await page.goto("/#slide-19", { waitUntil: "networkidle" });
+  await page.goto("./#slide-19", { waitUntil: "networkidle" });
   const download = page.getByRole("link", { name: /下载完整报告/ });
   await expect(download).toHaveAttribute("href", "assets/全球FDE发展研究报告-v44-未来发布版.pdf");
   await expect(download).toHaveAttribute("target", "_blank");
   await expect(download).toHaveAttribute("download", "全球FDE发展研究报告-v44-未来发布版.pdf");
 
-  const reportResponse = await request.get("/assets/%E5%85%A8%E7%90%83FDE%E5%8F%91%E5%B1%95%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A-v44-%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B8%83%E7%89%88.pdf");
-  expect(reportResponse.ok()).toBeTruthy();
-  expect(reportResponse.headers()["content-type"]).toContain("application/pdf");
-  expect((await reportResponse.body()).byteLength).toBeGreaterThan(100_000);
+  const reportResponse = await page.evaluate(async () => {
+    const response = await fetch("assets/全球FDE发展研究报告-v44-未来发布版.pdf", { cache: "no-store" });
+    const body = await response.arrayBuffer();
+    return {
+      ok: response.ok,
+      status: response.status,
+      contentType: response.headers.get("content-type"),
+      byteLength: body.byteLength,
+    };
+  });
+  expect(reportResponse.ok).toBeTruthy();
+  expect(reportResponse.status).toBe(200);
+  expect(reportResponse.contentType).toContain("application/pdf");
+  expect(reportResponse.byteLength).toBeGreaterThan(100_000);
 
   expect(telemetry.consoleErrors).toEqual([]);
   expect(telemetry.failedRequests).toEqual([]);
