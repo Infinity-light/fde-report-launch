@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const productionURL = process.env.PRODUCTION_URL || "https://fde.godpenai.com/";
+const productionEdgeIP = process.env.PRODUCTION_EDGE_IP;
 
 export default defineConfig({
   testDir: "./tests",
@@ -14,6 +15,14 @@ export default defineConfig({
   use: {
     baseURL: productionURL,
     channel: "chrome",
+    launchOptions: productionEdgeIP
+      ? {
+          args: [
+            `--host-resolver-rules=MAP fde.godpenai.com ${productionEdgeIP}`,
+            "--no-proxy-server",
+          ],
+        }
+      : undefined,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },

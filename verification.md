@@ -41,11 +41,28 @@ npm test
 ## 生产环境
 
 - 正式地址：`https://fde.godpenai.com/`
+- 内容发布提交：`0905bc4b7630881c1ad4d698d06de16b4a77f29e`
+- GitHub Pages build：`1140766641`，状态 `built`
 - GitHub Pages 源：`main / root`
 - 自定义域名：`fde.godpenai.com`
-- HTTPS：启用
+- HTTPS：证书状态 `approved`，强制启用
 
-生产部署提交、Pages 状态、线上 Playwright、HTTP 与文件哈希将在本次部署完成后写入本节。
+生产回归命令：
+
+```powershell
+$env:PRODUCTION_URL='https://fde.godpenai.com/'
+$env:PRODUCTION_EDGE_IP='185.199.108.153'
+npx playwright test --config=playwright.production.config.js
+```
+
+本机 Meta 代理把域名解析到虚拟地址，导致普通 TLS 请求间歇关闭；验收通过 `PRODUCTION_EDGE_IP` 将浏览器直连 GitHub Pages 官方边缘节点，Host 与证书仍使用正式域名。生产 Playwright 结果为 `6 passed (17.7s)`，桌面与移动端的 console error、失败请求和 HTTP 4xx/5xx 均为 0。
+
+生产链路额外核验：
+
+- `https://fde.godpenai.com/` 返回 HTTP 200，`Content-Length: 34,546`，包含 V49 与 26 页演示
+- `http://fde.godpenai.com/` 返回 HTTP 301，并跳转至 HTTPS
+- 线上 PDF 返回 HTTP 200，`Content-Type: application/pdf`，长度 1,909,057 bytes
+- 线上 PDF SHA-256：`A8BBACBA69818C361F77F3F3DC99E5D93740731695D7E61960A57A7A47709605`
 
 ## 视觉抽查
 
