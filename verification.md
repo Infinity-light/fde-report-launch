@@ -2,7 +2,7 @@
 
 验收日期：2026-08-09（Asia/Shanghai）
 
-## 自动化结果
+## 本地自动化
 
 执行：
 
@@ -10,56 +10,54 @@
 npm test
 ```
 
-结果：`6 passed (6.6s)`。
+结果：`6 passed (10.1s)`。
 
 覆盖项目：
 
-- `desktop-chromium`：系统 Chrome，1440×900
-- `mobile-chromium`：系统 Chrome 移动仿真，375×812
+- 桌面 `1440×900` 与移动 `375×812`
+- 固定 1600×900 舞台等比例缩放
+- 全部 19 页逐页检查宽高溢出
+- 键盘、点击、触摸、提纲、备注与全屏交互
+- 白蓝粒子 Canvas、AI 能量核心和无黄色视觉扫描
+- v41 关键叙事、版本边界与完整报告下载
+- console errors、failed requests、HTTP 4xx/5xx
 
-验收点：
+## 生产环境自动化
 
-- 19 页真实内容与关键叙事存在
-- 固定 1600×900 舞台在两个视口自动缩放并保持 16:9
-- 19 页逐页检查 `scrollWidth/clientWidth` 与 `scrollHeight/clientHeight`，无内容溢出
-- 左右键、Space、Home、End 翻页
-- 提纲打开、点击跳页、关闭
-- 全屏按钮触发并进入退出状态
-- 演讲提示开关
-- 移动端触摸左滑翻页
-- 封面真实 JPEG 加载且自然宽度为 1672px
-- PDF 下载链接返回 HTTP 200、`application/pdf`，文件大于 100KB
-- console errors：0
-- failed requests：0
-- HTTP 4xx/5xx：0
+- 正式地址：`https://fde.godpenai.com/`
+- DNS：`fde.godpenai.com CNAME infinity-light.github.io`
+- GitHub Pages：`built`，自定义域名已绑定，`https_enforced=true`
 
-## 截图
+执行：
 
-- `test-results/desktop-1440x900.png`
-- `test-results/mobile-375x812.png`
-- `test-results/production-final/cover-1440x900.png`
-- `test-results/production-final/conclusion-1440x900.png`
+```powershell
+$env:PRODUCTION_URL='https://fde.godpenai.com/'
+npx playwright test --config=playwright.production.config.js
+```
 
-## 资源预算与完整性
+结果：`6 passed (16.2s)`，单 worker、桌面与移动双端；console errors、failed requests、HTTP 4xx/5xx 均为 0。
 
-- 首屏本地资源总量：325,496 bytes（HTML + CSS + JS + JPEG + SVG），低于 500KB 目标。
-- 外部运行时资源：0；本地服务地址字符串除外。
-- 封面 JPEG：258,862 bytes；SHA-256 `1C70F28332156CAADD54DAE7E4A4B3C860C5E5D3635E310895B9F2619D2CC12A`
-- 完整报告 PDF：1,967,094 bytes；SHA-256 `76817632358F4ABB1534F60912ECB9BB1E34F6F9453CBD29D1DA43C11E62349D`
-- v44 禁用防御式短语全文扫描：0 命中。
+生产链路额外检查：
 
-## 人工视觉检查
+- `https://fde.godpenai.com/` 返回 HTTP 200
+- `http://fde.godpenai.com/` 返回 301，并跳转到 HTTPS
+- 线上 PDF 下载返回 HTTP 200，文件大于 100KB
+- 线上 PDF、本地站点资产与 v41 正式 PDF 的 SHA-256 一致：`5131F7872F24F94CB137C73BFB50485069C9DC9FF632E03A73B5C7C87B34B98`
 
-- 封面标题位于主视觉左侧暗部，对比清楚；石墨地景和铜色路线保持原图质感。
-- 正文使用黑 / 纸白 / 荧光黄三色系统，没有蓝紫渐变、漂浮玻璃卡片或廉价科技网格。
-- 结论页采用正向表述：“FDE 连接行业判断、技术实现和持续结果责任”。
-- 桌面和移动截图均完成肉眼检查，移动端保持发布会画面比例与可用控制栏。
+## 视觉与内容找茬
 
-## 生产验收
+人工检查生产环境封面、知性生产资料、FDE 定义、五类商业模式、FDE 投入强度、中国特色道路、中国前沿探索与收束页，确认：
 
-- 线上地址：`https://infinity-light.github.io/fde-report-launch/`
-- 执行：`$env:PRODUCTION_URL='https://infinity-light.github.io/fde-report-launch/'; npx playwright test --config=playwright.production.config.js`
-- 结果：`6 passed (13.6s)`，单 worker、桌面与移动双端，console errors / failed requests / HTTP 4xx/5xx 均为 0。
-- `curl.exe -L --fail --retry 3` 下载线上 PDF 成功，HTTP 200，大小 1,967,094 bytes。
-- 线上下载件、本地站点资产、v44 最终 PDF 的 SHA-256 三方一致：`76817632358F4ABB1534F60912ECB9BB1E34F6F9453CBD29D1DA43C11E62349D`。
-- 生产封面、结论页及桌面/移动截图已完成肉眼检查。
+- 深蓝黑背景、白色与蓝色辉光、粒子飞旋和轨道系统在各页保持统一
+- 同类标题、页头、页码、线框、强调色和底部结论条保持一致
+- 19 页均无文字挤压、截断或横向滚动
+- 关键页面信息密度与视觉层级适合 16:9 发布会投屏
+- 页面不出现 v44、固定人效替代比例或 v42 以后新增的测算倍数
+- 封面与全文均未沿用旧版黄色主视觉
+
+## 资源与完整性
+
+- 首屏本地资源：95,651 bytes（HTML + CSS + JS + SVG），低于 500KB 目标
+- 外部运行时资源：0
+- 完整报告 PDF：与 `当前定稿/全球FDE发展研究报告-v41-完整表述与逻辑重构版.pdf` 哈希一致
+- 生产截图：`test-results/cover-1440x900.png`、`test-results/desktop-1440x900.png`、`test-results/mobile-375x812.png`

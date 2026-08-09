@@ -44,7 +44,7 @@ Playwright 覆盖桌面 `1440×900` 与移动 `375×812`，检查 16:9 舞台缩
 生产环境验收：
 
 ```powershell
-$env:PRODUCTION_URL='https://infinity-light.github.io/fde-report-launch/'
+$env:PRODUCTION_URL='https://fde.godpenai.com/'
 npx playwright test --config=playwright.production.config.js
 ```
 
