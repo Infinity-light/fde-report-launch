@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "fde-launch-deck-v46:slide";
+  const STORAGE_KEY = "fde-launch-deck-v49:slide";
   const stage = document.querySelector("#stage");
   const viewport = document.querySelector("#deck");
   const slides = Array.from(document.querySelectorAll(".slide"));
@@ -45,9 +45,30 @@
     return String(value).padStart(2, "0");
   }
 
+  function normalizeSlides() {
+    slides.forEach((slide, index) => {
+      const page = index + 1;
+      const title = slide.dataset.title || `第 ${page} 页`;
+      slide.setAttribute("aria-label", `第${page}页：${title}`);
+      const folio = slide.querySelector(".slide-folio");
+      if (folio) folio.textContent = twoDigits(page);
+    });
+    totalPages.textContent = twoDigits(slides.length);
+  }
+
   function buildOutline() {
     const fragment = document.createDocumentFragment();
+    let currentChapter = "";
     slides.forEach((slide, index) => {
+      const chapter = slide.dataset.chapter || "其他";
+      if (chapter !== currentChapter) {
+        currentChapter = chapter;
+        const label = document.createElement("li");
+        label.className = "outline-list__chapter";
+        label.textContent = chapter;
+        label.setAttribute("aria-hidden", "true");
+        fragment.append(label);
+      }
       const item = document.createElement("li");
       const button = document.createElement("button");
       button.type = "button";
@@ -385,6 +406,7 @@
   });
   window.addEventListener("beforeunload", () => particles.destroy(), { once: true });
 
+  normalizeSlides();
   buildOutline();
   resizeStage();
   render(false);

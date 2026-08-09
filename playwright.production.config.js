@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const productionURL = process.env.PRODUCTION_URL || "https://infinity-light.github.io/fde-report-launch/";
+const productionURL = process.env.PRODUCTION_URL || "https://fde.godpenai.com/";
 
 export default defineConfig({
   testDir: "./tests",

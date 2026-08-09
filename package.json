@@ -5,6 +5,7 @@
   "description": "《全球FDE发展研究报告》发布会网站PPT",
   "type": "module",
   "scripts": {
+    "build": "node scripts/build.mjs",
     "start": "node scripts/serve.mjs",
     "test": "playwright test",
     "test:headed": "playwright test --headed",

@@ -1,53 +1,53 @@
 # 全球 FDE 发展研究报告 · 发布会网站 PPT
 
-面向正式发布会讲解的单页 HTML deck。视觉方向为“深空智能场”：深蓝黑背景、白色与蓝色辉光、AI 能量核心与粒子飞旋共同构成封面，正文延续同一套克制、端庄的未来科技视觉。
+《全球FDE发展研究报告》V49 的正式发布会单页 HTML deck。全套采用深蓝黑背景、白色与蓝色辉光、AI 能量核心和 Canvas 粒子飞旋；没有黄色视觉。
 
-## 本地运行
+## 五章结构
+
+1. FDE的兴起、定义与职业内核
+2. FDE的理论基础：AI时代企业数智化的快速反应力量
+3. 全球企业围绕FDE形成的五类商业模式
+4. 中国特色FDE模式
+5. FDE的发展趋势、产业影响与行动建议
+
+26 页演示只在上述五章内部展开。每章有独立章页、章内小节编号和分组提纲，不另立第六章或第七章。
+
+## 本地运行与构建
 
 ```powershell
 npm install
 npm start
+npm run build
 ```
 
-浏览器打开 `http://127.0.0.1:4177`。
-
-本工程没有编译步骤；`index.html`、`styles/`、`scripts/` 与 `assets/` 可以直接发布到任意静态网站托管。
+- 本地地址：`http://127.0.0.1:4177`
+- 静态构建目录：`dist/`
+- 生产地址：`https://fde.godpenai.com/`
 
 ## 操作
 
 - `←` / `→` / `Space` / `PageUp` / `PageDown`：翻页
 - `Home` / `End`：首尾页
-- `F`：全屏
-- `O`：提纲导航
-- `N`：演讲提示
-- `?`：快捷键帮助
-- 触摸设备：左右滑动
-- 屏幕两侧点击区、底部按钮与提纲均可导航
+- `F`：全屏；`O`：分章提纲；`N`：演讲提示；`?`：快捷键帮助
+- 触摸设备支持左右滑动，屏幕两侧和底部按钮均可导航
 
-播放位置保存在浏览器 `localStorage`，也可直接打开 `#slide-12` 之类的页码锚点。
+## 内容与证据
 
-## 内容与资产
-
-- 主叙事严格来自 `当前定稿/全球FDE发展研究报告-v46-飞书反馈与商业模式主线修订版.docx`，逐页出处见 [content-source-map.md](content-source-map.md)。
-- 首屏的 AI 能量核心、轨道与粒子均由本地 HTML/CSS/Canvas 生成；页面不加载外部字体、脚本或图片。
-- 完整报告下载目标为 `assets/全球FDE发展研究报告-v46-正式发布版.pdf`。
-- 关键机构、数据和定量边界见 [product-facts.md](product-facts.md)。
+- 内容基线：`当前定稿/全球FDE发展研究报告-v49-中国平台证据边界增强版.docx`
+- 下载资产：`assets/全球FDE发展研究报告-v49-中国平台证据边界增强版.pdf`
+- 岗位数据冻结时间：`2026-08-09T15:09:28+08:00`
+- 逐页出处见 [content-source-map.md](content-source-map.md)，定量边界见 [product-facts.md](product-facts.md)。
 
 ## 自动验收
 
 ```powershell
+npm audit --omit=dev --audit-level=high
+npm run build
 npm test
-```
-
-Playwright 覆盖桌面 `1440×900` 与移动 `375×812`，检查 16:9 舞台缩放、全部 19 页溢出、键盘翻页、触摸滑动、提纲跳页、全屏按钮、演讲提示、v46 关键叙事、完整报告下载可达性、console、network 与截图。
-
-生产环境验收：
-
-```powershell
 $env:PRODUCTION_URL='https://fde.godpenai.com/'
 npx playwright test --config=playwright.production.config.js
 ```
 
-完整验收证据见 [verification.md](verification.md)。
+Playwright 覆盖桌面 `1440×900` 与移动 `375×812`，逐页检查 26 页溢出、五章顺序、分章提纲、键盘/触摸/全屏/备注、白蓝粒子视觉、关键数据边界、V49 PDF 下载以及 console/network 错误。
 
-`prefers-reduced-motion` 会把转场压缩到 1ms。非当前页使用 `aria-hidden` 与 `inert` 隔离，控制项提供 ARIA 标签和可见焦点。
+`prefers-reduced-motion` 会关闭主要转场。非当前页使用 `aria-hidden` 与 `inert` 隔离。
