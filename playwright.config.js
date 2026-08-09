@@ -7,15 +7,15 @@ export default defineConfig({
   fullyParallel: false,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:4173",
+    baseURL: "http://127.0.0.1:4177",
     channel: "chrome",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },
   webServer: {
     command: "node scripts/serve.mjs",
-    url: "http://127.0.0.1:4173",
-    reuseExistingServer: true,
+    url: "http://127.0.0.1:4177",
+    reuseExistingServer: false,
     timeout: 20_000,
   },
   projects: [

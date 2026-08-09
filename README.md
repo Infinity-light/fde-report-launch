@@ -9,7 +9,7 @@ npm install
 npm start
 ```
 
-浏览器打开 `http://127.0.0.1:4173`。
+浏览器打开 `http://127.0.0.1:4177`。
 
 本工程没有编译步骤；`index.html`、`styles/`、`scripts/` 与 `assets/` 可以直接发布到任意静态网站托管。
 
@@ -28,9 +28,9 @@ npm start
 
 ## 内容与资产
 
-- 主叙事严格来自 `当前定稿/全球FDE发展研究报告-v41-完整表述与逻辑重构版.docx`，逐页出处见 [content-source-map.md](content-source-map.md)。
+- 主叙事严格来自 `当前定稿/全球FDE发展研究报告-v46-飞书反馈与商业模式主线修订版.docx`，逐页出处见 [content-source-map.md](content-source-map.md)。
 - 首屏的 AI 能量核心、轨道与粒子均由本地 HTML/CSS/Canvas 生成；页面不加载外部字体、脚本或图片。
-- 完整报告下载目标为 `assets/全球FDE发展研究报告-v41-正式版.pdf`。
+- 完整报告下载目标为 `assets/全球FDE发展研究报告-v46-正式发布版.pdf`。
 - 关键机构、数据和定量边界见 [product-facts.md](product-facts.md)。
 
 ## 自动验收
@@ -39,7 +39,7 @@ npm start
 npm test
 ```
 
-Playwright 覆盖桌面 `1440×900` 与移动 `375×812`，检查 16:9 舞台缩放、全部 19 页溢出、键盘翻页、触摸滑动、提纲跳页、全屏按钮、演讲提示、关键叙事、完整报告下载可达性、console、network 与截图。
+Playwright 覆盖桌面 `1440×900` 与移动 `375×812`，检查 16:9 舞台缩放、全部 19 页溢出、键盘翻页、触摸滑动、提纲跳页、全屏按钮、演讲提示、v46 关键叙事、完整报告下载可达性、console、network 与截图。
 
 生产环境验收：
 

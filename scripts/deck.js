@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "fde-launch-deck-v41:slide";
+  const STORAGE_KEY = "fde-launch-deck-v46:slide";
   const stage = document.querySelector("#stage");
   const viewport = document.querySelector("#deck");
   const slides = Array.from(document.querySelectorAll(".slide"));
@@ -223,7 +223,7 @@
     const width = 1600;
     const height = 900;
     const sceneProfiles = {
-      cover: { x: 1168, y: 445, density: 165, speed: 1.25, alpha: 1 },
+      cover: { x: 1168, y: 445, density: 224, speed: 1.38, alpha: 1, trail: 30 },
       core: { x: 930, y: 445, density: 100, speed: .82, alpha: .62 },
       orbit: { x: 1110, y: 450, density: 118, speed: .9, alpha: .72 },
       network: { x: 930, y: 460, density: 92, speed: .55, alpha: .5 },
@@ -234,7 +234,7 @@
       curve: { x: 1050, y: 430, density: 72, speed: .5, alpha: .32 },
       china: { x: 405, y: 470, density: 108, speed: .72, alpha: .58 },
       flow: { x: 1010, y: 450, density: 78, speed: .56, alpha: .38 },
-      release: { x: 1300, y: 430, density: 145, speed: 1.02, alpha: .82 },
+      release: { x: 1300, y: 430, density: 168, speed: 1.08, alpha: .88, trail: 24 },
       default: { x: 1030, y: 440, density: 76, speed: .52, alpha: .36 },
     };
     const dots = [];
@@ -301,7 +301,7 @@
       for (const dot of dots) {
         if (!reducedMotion.matches) dot.angle += dot.speed * profile.speed;
         const now = point(dot);
-        const previous = point(dot, -dot.speed * profile.speed * 13);
+        const previous = point(dot, -dot.speed * profile.speed * (profile.trail || 13));
         const alpha = dot.alpha * profile.alpha;
         const color = dot.tint > .76 ? "240,250,255" : dot.tint > .23 ? "103,204,255" : "32,139,230";
 
