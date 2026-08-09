@@ -1,6 +1,6 @@
 # 全球 FDE 发展研究报告 · 发布会网站 PPT
 
-面向正式发布会讲解的单页 HTML deck。视觉方向为“未来编辑部 / 工业档案”：石墨黑、纸白与单一高能荧光黄构成主色，配合真实全球部署封面、硬分隔、大字号与克制转场。
+面向正式发布会讲解的单页 HTML deck。视觉方向为“深空智能场”：深蓝黑背景、白色与蓝色辉光、AI 能量核心与粒子飞旋共同构成封面，正文延续同一套克制、端庄的未来科技视觉。
 
 ## 本地运行
 
@@ -28,9 +28,9 @@ npm start
 
 ## 内容与资产
 
-- 主叙事来自 `当前定稿/全球FDE发展研究报告-v44-自然逻辑与未来感封面修订版.docx`，逐页出处见 [content-source-map.md](content-source-map.md)。
-- 首屏封面使用 `assets/fde-future-cover.jpg`，1672×941，258,862 bytes；页面不加载外部字体、脚本或图片。
-- 完整报告下载目标为 `assets/全球FDE发展研究报告-v44-未来发布版.pdf`。
+- 主叙事严格来自 `当前定稿/全球FDE发展研究报告-v41-完整表述与逻辑重构版.docx`，逐页出处见 [content-source-map.md](content-source-map.md)。
+- 首屏的 AI 能量核心、轨道与粒子均由本地 HTML/CSS/Canvas 生成；页面不加载外部字体、脚本或图片。
+- 完整报告下载目标为 `assets/全球FDE发展研究报告-v41-正式版.pdf`。
 - 关键机构、数据和定量边界见 [product-facts.md](product-facts.md)。
 
 ## 自动验收
