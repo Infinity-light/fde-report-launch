@@ -34,6 +34,12 @@ git diff --check
 - 22 页全部以原始 `1600×900` 舞台渲染；`test-results/data-case-deck-slides/render-manifest.json` 状态为 `PASS`，无页面溢出。
 - 已人工检查 `test-results/data-case-deck-slides/contact-sheet-22.png` 以及关键数据/案例页 08、10、15、16、17：无截断、重叠、空白页或黄色视觉，数字与来源脚注可见。
 
-## 发布状态
+## 生产部署与线上验收
 
-本轮只完成本地重构、构建与验收，尚未把 22 页版本部署到生产地址。生产站点仍应视为此前已发布版本，不能据本记录认定线上内容已经更新。
+- 实现提交：`080f7b290dd13330518fc4b2df0e6e135a7794eb`
+- GitHub Pages：构建状态 `built`，构建提交与实现提交一致
+- 生产地址：`https://fde.godpenai.com/`
+- 线上 HTML：`HTTP 200`，`Content-Length: 30193`，命中 `22 SLIDES · ONE STORY`、`DATA & CASE EDITION`、制造业加急订单与数据案例页，不再命中旧版 `V66 NARRATIVE BASELINE`
+- 生产 Playwright：`npx playwright test --config=playwright.production.config.js`，桌面端与移动端共 `8 passed`
+- 线上 V66 PDF：`HTTP 200`，`2,604,535` 字节，SHA-256 为 `9B61C2EDD2BB0D5E123F3153C82CE9376156A488C3ED87D93944FC7A4DBDF80B`，与本地副本一致
+- 线上无逐页溢出、console error、request failure 或 HTTP 4xx/5xx；键盘、触摸、提纲与报告下载均通过自动化验证
