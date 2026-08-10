@@ -40,4 +40,14 @@ git diff --check
 - DNS：`fde.godpenai.com CNAME infinity-light.github.io`
 - GitHub Pages API：仓库 `Infinity-light/fde-report-launch`，来源 `main:/`，`https_enforced=true`
 
-生产发布与线上 Playwright/curl 结果在实际推送后补录。
+## 生产结果
+
+- 实现提交：`b162188f195da91a8d34040cc9422fb008724f91`
+- GitHub Pages build：`1143103991`
+- 构建状态：`built`，构建 commit 与实现提交一致
+- 验证地址：`https://fde.godpenai.com/`
+- `curl -I -L https://fde.godpenai.com/?v=b162188`：`HTTP/1.1 200 OK`，`Server: GitHub.com`
+- 线上 HTML 命中 `V66 NARRATIVE BASELINE`、短期概念检验问题、首席/副手 FDE 与 V66 PDF 路径
+- 线上 PDF SHA-256：`9B61C2EDD2BB0D5E123F3153C82CE9376156A488C3ED87D93944FC7A4DBDF80B`，与本地一致
+- 生产 Playwright：`npx playwright test --config=playwright.production.config.js`，`6 passed`
+- 线上桌面与移动端均无溢出、console error、request failure 或 HTTP 4xx/5xx
