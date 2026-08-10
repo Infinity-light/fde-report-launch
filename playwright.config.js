@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const localPort = process.env.TEST_PORT || "4177";
+const localURL = `http://127.0.0.1:${localPort}`;
+
 export default defineConfig({
   testDir: "./tests",
   timeout: 30_000,
@@ -7,14 +10,15 @@ export default defineConfig({
   fullyParallel: false,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:4177",
+    baseURL: localURL,
     channel: "chrome",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },
   webServer: {
     command: "node scripts/serve.mjs",
-    url: "http://127.0.0.1:4177",
+    url: localURL,
+    env: { ...process.env, PORT: localPort },
     reuseExistingServer: false,
     timeout: 20_000,
   },
