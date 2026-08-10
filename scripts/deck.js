@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "fde-launch-deck-v49:slide";
+  const STORAGE_KEY = "fde-launch-deck-v66:slide";
   const stage = document.querySelector("#stage");
   const viewport = document.querySelector("#deck");
   const slides = Array.from(document.querySelectorAll(".slide"));

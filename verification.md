@@ -1,69 +1,43 @@
-# V49 验收记录
+# V66 网站式 PPT 验收记录
 
-验收日期：2026-08-09（Asia/Shanghai）
+验收日期：2026-08-10（Asia/Shanghai）
 
-## 报告成品
+## 内容与资产
 
-- DOCX：`当前定稿/全球FDE发展研究报告-v49-中国平台证据边界增强版.docx`
-- PDF：`当前定稿/全球FDE发展研究报告-v49-中国平台证据边界增强版.pdf`
-- QA：`当前定稿/_qa_v49_china_platform/v49-verification.json`
-- DOCX SHA-256：`CE7E2122EF45FB3273D6404D44BABA6BC3ABA9744AFA551B8F575B3449680FBF`
-- PDF SHA-256：`A8BBACBA69818C361F77F3F3DC99E5D93740731695D7E61960A57A7A47709605`
+- 摘要真源：`D:\TechWork\FDE报告\当前定稿\V64-摘要明确版-人机协同逻辑修订-20260810.md`
+- 实施契约：`D:\TechWork\FDE报告\V65工作区\V66-统一实施契约-20260810.md`
+- V66 DOCX：`D:\TechWork\FDE报告\当前定稿\全球FDE发展研究报告-v66-统一实施版-20260810.docx`
+- V66 PDF：`D:\TechWork\FDE报告\当前定稿\全球FDE发展研究报告-v66-统一实施版-20260810.pdf`
+- 随站 PDF：`assets/全球FDE发展研究报告-v66-统一实施版-20260810.pdf`
+- PDF SHA-256：`9B61C2EDD2BB0D5E123F3153C82CE9376156A488C3ED87D93944FC7A4DBDF80B`
 
-QA 结论为 `PASS`，失败项 0。PDF 共 72 页；五个章标题与用户确认结构完全一致；14 个图表注全部居中；无修订痕迹、无批注、无无图空白页。抽样渲染覆盖封面、目录、五章关键页、中国平台证据页和末页。
+原始 PDF 与随站副本 SHA-256 一致。网站共 33 页，第 1—4 页提出矛盾与检验路线，第 5—22 页集中完成第一、二章主论证，第 23—33 页完成全球验证、中国路径、产业影响与长期判断。
 
-中国平台数据已独立复算：72 条原始记录形成 69 个去镜像职位组，其中 A=25、A0=23、B=1、D=19、E=1；A+A0=48 只用于说明公开采用 FDE 头衔。职责与技能分析仅使用 13 个同时满足 A/B 判定和 A/B 证据等级的 canonical 记录；A0 不进入职责频率。中国层尚未并入全球主表，不与全球 2,493—5,143 边界相加。
-
-## 网站 PPT 本地验收
-
-执行：
+## 实际执行的本地验证
 
 ```powershell
-npm audit --omit=dev --audit-level=high
 npm run build
 npm test
+node scripts/render-slides.mjs test-results/v66-ppt-slides
+npm audit --audit-level=high --registry=https://registry.npmjs.org
+git diff --check
 ```
 
-覆盖内容：
+结果：
 
-- 桌面 `1440×900` 与移动 `375×812`
-- 26 页逐页宽高溢出检查
-- 五个大章页、章内小节编号与分章提纲
-- 键盘、点击、触摸、全屏、备注和快捷键帮助
-- 深色背景、白蓝辉光、Canvas 粒子飞旋和无黄色视觉
-- 全球岗位 18,306 / 17,269 / 5,143 / 2,493—5,143 的口径边界
-- 中国平台 72 / 69 / 48 / 13 的用途边界
-- TCO 五档精确结果 48.9635 / 34.4740 / 22.7641 / 15.2293 / 14.0236
-- V49 PDF 下载、console error、失败请求与 HTTP 4xx/5xx
+- 静态构建成功，输出到 `dist/`。
+- Playwright `6 passed`；桌面 `1440×900` 与移动 `375×812` 覆盖 33 页结构、五章顺序、键盘/触摸/提纲、逐页溢出、V66 术语与口径、PDF 下载、console/network 错误。
+- 33 页全部以原始 `1600×900` 舞台渲染；`test-results/v66-ppt-slides/render-manifest.json` 状态为 `PASS`。
+- `test-results/v66-ppt-slides/contact-sheet-33.png` 已人工检查：无截断、重叠、空白页或黄色视觉；封面署名与正文判断边界正确。
+- 依赖安全审计使用 npm 官方 registry，结果为 `found 0 vulnerabilities`。
+- `git diff --check` 无空白错误。
 
-本地验收结果：生产依赖 `0 vulnerabilities`；静态构建成功；Playwright `6 passed (10.3s)`。网站内 PDF 与报告源 PDF 的 SHA-256 完全一致。
+## 生产部署验证
 
-## 生产环境
+部署链已由三方证据确认：
 
-- 正式地址：`https://fde.godpenai.com/`
-- 内容发布提交：`0905bc4b7630881c1ad4d698d06de16b4a77f29e`
-- GitHub Pages build：`1140766641`，状态 `built`
-- GitHub Pages 源：`main / root`
-- 自定义域名：`fde.godpenai.com`
-- HTTPS：证书状态 `approved`，强制启用
+- `CNAME`：`fde.godpenai.com`
+- DNS：`fde.godpenai.com CNAME infinity-light.github.io`
+- GitHub Pages API：仓库 `Infinity-light/fde-report-launch`，来源 `main:/`，`https_enforced=true`
 
-生产回归命令：
-
-```powershell
-$env:PRODUCTION_URL='https://fde.godpenai.com/'
-$env:PRODUCTION_EDGE_IP='185.199.108.153'
-npx playwright test --config=playwright.production.config.js
-```
-
-本机 Meta 代理把域名解析到虚拟地址，导致普通 TLS 请求间歇关闭；验收通过 `PRODUCTION_EDGE_IP` 将浏览器直连 GitHub Pages 官方边缘节点，Host 与证书仍使用正式域名。生产 Playwright 结果为 `6 passed (17.7s)`，桌面与移动端的 console error、失败请求和 HTTP 4xx/5xx 均为 0。
-
-生产链路额外核验：
-
-- `https://fde.godpenai.com/` 返回 HTTP 200，`Content-Length: 34,546`，包含 V49 与 26 页演示
-- `http://fde.godpenai.com/` 返回 HTTP 301，并跳转至 HTTPS
-- 线上 PDF 返回 HTTP 200，`Content-Type: application/pdf`，长度 1,909,057 bytes
-- 线上 PDF SHA-256：`A8BBACBA69818C361F77F3F3DC99E5D93740731695D7E61960A57A7A47709605`
-
-## 视觉抽查
-
-人工抽查封面、五章总览、全球岗位数据、单位经济、中国特色模式、中国平台边界和发布页：视觉均沿用深蓝黑背景、白色与蓝色浅辉光、AI 能量核心及粒子轨迹；大章与小节层级清晰；26 页均无文字截断或横向滚动。
+生产发布与线上 Playwright/curl 结果在实际推送后补录。
