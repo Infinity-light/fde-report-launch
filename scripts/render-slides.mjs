@@ -5,11 +5,11 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const outputRoot = resolve(process.argv[2] || "test-results/data-case-deck-slides");
+const outputRoot = resolve(process.argv[2] || "test-results/global-practice-v67-slides");
 const externalURL = process.env.DECK_URL;
 const localPort = process.env.RENDER_PORT || "4180";
 const baseURL = externalURL || `http://127.0.0.1:${localPort}`;
-const expectedSlides = 22;
+const expectedSlides = 20;
 
 await rm(outputRoot, { recursive: true, force: true });
 await mkdir(outputRoot, { recursive: true });

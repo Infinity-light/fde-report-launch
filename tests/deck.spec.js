@@ -10,14 +10,14 @@ function observePage(page) {
   return { consoleErrors, failedRequests, badResponses };
 }
 
-test("桌面端22页数据案例叙事、结构和逐页布局完整", async ({ page }, testInfo) => {
+test("桌面端20页数据案例叙事、结构和逐页布局完整", async ({ page }, testInfo) => {
   if (testInfo.project.name !== "desktop-chromium") return;
   const telemetry = observePage(page);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("./#slide-1", { waitUntil: "networkidle" });
 
-  await expect(page.locator(".slide")).toHaveCount(22);
-  await expect(page.locator("#total-pages")).toHaveText("22");
+  await expect(page.locator(".slide")).toHaveCount(20);
+  await expect(page.locator("#total-pages")).toHaveText("20");
   await expect(page.locator(".cover-copy")).toContainText("上海市大数据社会应用研究会");
   await expect(page.locator(".cover-meta")).toContainText("DATA & CASE EDITION");
   await expect(page.locator("#particle-field")).toHaveJSProperty("width", 1600);
@@ -25,8 +25,8 @@ test("桌面端22页数据案例叙事、结构和逐页布局完整", async ({ 
   const orderedTitles = await page.locator(".slide").evaluateAll((nodes) => nodes.map((node) => node.dataset.title));
   expect(orderedTitles).toEqual([
     "封面", "企业真正缺什么", "一笔加急订单", "FDE是什么", "FDE到底做什么", "这个职业已经出现",
-    "旧流程为何拖慢AI", "AI把实现速度推高了", "定制化开始算得过账", "Palantir把服务做成软件",
-    "头部企业正在重押部署", "AWS把交付压进45天", "Sierra按结果收费", "全球证据证明了什么",
+    "旧流程为何拖慢AI", "AI把实现速度推高了", "定制化开始算得过账", "技术供给侧：把能力送进生产",
+    "专业交付侧：把建议变成结果", "五类案例共同证明什么",
     "中国市场从哪里切入", "星瀚律所从内部长出FDE", "HA7CH连接独立FDE", "中国需要两条供给路径",
     "企业怎样开始", "什么才算交付成功", "效率最终要被分享", "全篇结论",
   ]);
@@ -35,7 +35,7 @@ test("桌面端22页数据案例叙事、结构和逐页布局完整", async ({ 
   expect(chapters).toEqual(["开场", "问题与角色", "为什么现在成立", "全球证据", "中国路径", "行动", "结论"]);
 
   const overflows = [];
-  for (let index = 1; index <= 22; index += 1) {
+  for (let index = 1; index <= 20; index += 1) {
     await page.evaluate((slideNumber) => { window.location.hash = `slide-${slideNumber}`; }, index);
     await expect(page.locator("#current-page")).toHaveText(String(index).padStart(2, "0"));
     const metrics = await page.locator(".slide.is-active").evaluate((slide) => ({
@@ -52,7 +52,7 @@ test("桌面端22页数据案例叙事、结构和逐页布局完整", async ({ 
   await page.getByRole("button", { name: "打开幻灯片提纲" }).click();
   await expect(page.locator("#outline-panel")).toHaveAttribute("aria-hidden", "false");
   await expect(page.locator(".outline-list__chapter")).toHaveCount(7);
-  await page.getByRole("button", { name: /跳到第 15 页/ }).click();
+  await page.getByRole("button", { name: /跳到第 13 页/ }).click();
   await expect(page.locator(".slide.is-active")).toContainText("9,400");
 
   const visual = await page.evaluate(async () => {
@@ -78,13 +78,12 @@ test("关键数据、案例与证据边界均已进入演示", async ({ page }) 
     [3, ["一笔制造业加急订单", "CRM", "ERP", "MES"]],
     [6, ["5,856", "685", "45", "不等同于全球或中国岗位存量"]],
     [8, ["+26.08%", "4,867 名软件开发者", "它不证明"]],
-    [10, ["44.75", "82.4%", "31.6%", "Form 10-K"]],
-    [11, ["10 亿美元", "约 6,000 人", "约 150 人", "5—6 人"]],
-    [12, ["45", "观察", "共建", "自主运行"]],
-    [13, ["Sierra", "解决请求", "适用边界"]],
-    [15, ["9,400", "73.8%", "25.3%", "4.8%", "3.6%"]],
-    [16, ["上海星瀚律师事务所", "科技小组", "本地部署与脱敏"]],
-    [17, ["HA7CH", "Lawted", "深圳 · 上海 · 杭州 · 北京"]],
+    [10, ["Palantir", "44.75", "OpenAI Deployment Company", "约 150 名", "AWS", "45", "10 亿美元"]],
+    [11, ["安永", "诊断", "构建", "Sierra", "定义结果", "可核验合同"]],
+    [12, ["Palantir", "OpenAI DC", "AWS", "EY", "Sierra", "责任连续", "资产回流", "客户自主运行", "摆脱人力线性"]],
+    [13, ["9,400", "73.8%", "25.3%", "4.8%", "3.6%"]],
+    [14, ["上海星瀚律师事务所", "科技小组", "本地部署与脱敏"]],
+    [15, ["HA7CH", "Lawted", "深圳 · 上海 · 杭州 · 北京"]],
   ];
   for (const [slide, snippets] of expectations) {
     await page.goto(`./#slide-${slide}`, { waitUntil: "networkidle" });
@@ -120,12 +119,12 @@ test("移动端16:9舞台、键盘、触摸和提纲可用", async ({ page }, te
   await page.keyboard.press("ArrowRight");
   await expect(page.locator("#current-page")).toHaveText("03");
   await page.keyboard.press("End");
-  await expect(page.locator("#current-page")).toHaveText("22");
+  await expect(page.locator("#current-page")).toHaveText("20");
   await page.keyboard.press("Home");
   await expect(page.locator("#current-page")).toHaveText("01");
 
   await page.getByRole("button", { name: "打开幻灯片提纲" }).click();
-  await page.getByRole("button", { name: /跳到第 19 页/ }).click();
+  await page.getByRole("button", { name: /跳到第 17 页/ }).click();
   await expect(page.locator(".slide.is-active")).toContainText("先选一个");
   await expect(page.locator("#outline-panel")).toHaveAttribute("aria-hidden", "true");
 
@@ -137,11 +136,11 @@ test("移动端16:9舞台、键盘、触摸和提纲可用", async ({ page }, te
   expect(telemetry.badResponses).toEqual([]);
 });
 
-test("完整报告下载保持V66基线", async ({ page }) => {
+test("完整报告下载保持V67基线", async ({ page }) => {
   const telemetry = observePage(page);
-  await page.goto("./#slide-22", { waitUntil: "networkidle" });
-  const filename = "全球FDE发展研究报告-v66-统一实施版-20260810.pdf";
-  const download = page.getByRole("link", { name: /打开 V66 完整报告/ });
+  await page.goto("./#slide-20", { waitUntil: "networkidle" });
+  const filename = "全球FDE发展研究报告-v67-摘要定稿版-20260810.pdf";
+  const download = page.getByRole("link", { name: /打开 V67 完整报告/ });
   await expect(download).toHaveAttribute("href", `assets/${filename}`);
   await expect(download).toHaveAttribute("download", filename);
   const response = await page.evaluate(async (path) => {
