@@ -116,9 +116,9 @@ test("九张论证图片均加载、具备替代文本和统一证据图注", as
   const telemetry = observePage(page);
   await page.goto("./#slide-1", { waitUntil: "networkidle" });
   const expected = [
-    "01-rush-order-system.png", "02-fde-on-site.png", "03-ai-engineering-acceleration.png", "04-global-technology-supply.png",
-    "05-professional-service-go-live.png", "06-customer-autonomous-operation.png", "07-china-industrial-cluster.png",
-    "08-internal-fde-secure-workflow.png", "09-external-industry-fde-unit.png",
+    "01-rush-order-system.jpg", "02-fde-on-site.jpg", "03-ai-engineering-acceleration.jpg", "04-global-technology-supply.jpg",
+    "05-professional-service-go-live.jpg", "06-customer-autonomous-operation.jpg", "07-china-industrial-cluster.jpg",
+    "08-internal-fde-secure-workflow.jpg", "09-external-industry-fde-unit.jpg",
   ];
   await expect(page.locator(".evidence-figure img")).toHaveCount(expected.length);
   const images = await page.locator(".evidence-figure img").evaluateAll((nodes) => nodes.map((image) => ({ src: image.getAttribute("src"), alt: image.alt, complete: image.complete, naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight })));
