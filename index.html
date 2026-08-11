@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#020712" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-    <meta name="description" content="《全球FDE发展研究报告》发布演示：用数据与案例解释FDE为何出现、如何创造价值，以及中国路径。" />
-    <title>全球 FDE 发展研究报告 · 数据与案例版</title>
+    <meta name="description" content="《全球FDE发展研究报告》20页发布演示：以连续推理、报告案例和生产现场视觉解释FDE为何出现、如何成立及中国路径。" />
+    <title>全球 FDE 发展研究报告 · 发布演示</title>
     <link rel="stylesheet" href="styles/deck.css" />
   </head>
   <body>
@@ -25,294 +25,363 @@
         <button class="tap-zone tap-zone--previous" type="button" data-action="previous" aria-label="上一页"></button>
         <button class="tap-zone tap-zone--next" type="button" data-action="next" aria-label="下一页"></button>
 
-        <section class="slide slide--cover is-active" data-scene="cover" data-title="封面" data-chapter="开场" data-note="这是报告发布演示，不是报告目录。整场只回答三个问题：为什么需要FDE、全球是否已验证、中国怎样落地。">
+        <section class="slide slide--cover is-active" data-scene="cover" data-title="报告要回答什么" data-chapter="问题提出">
           <div class="cover-orbit" aria-hidden="true"><span class="orbit orbit--one"><i></i><i></i></span><span class="orbit orbit--two"><i></i><i></i><i></i></span><span class="orbit orbit--three"><i></i></span><span class="ai-core"><b>FDE</b><em></em></span></div>
           <div class="cover-copy">
-            <p class="eyebrow"><span>2026</span> GLOBAL RESEARCH REPORT</p>
+            <p class="eyebrow">2026 / GLOBAL RESEARCH REPORT</p>
             <h1>全球 <mark>FDE</mark><br />发展研究报告</h1>
-            <p class="cover-subtitle">让人工智能走进真实生产</p>
-            <div class="cover-meta"><strong>上海市大数据社会应用研究会</strong><span>DATA &amp; CASE EDITION</span></div>
+            <p class="cover-question">为什么企业需要一种把通用人工智能<br />持续转化为生产结果的责任角色？</p>
+            <div class="cover-meta"><strong>上海市大数据社会应用研究会</strong><span>20 页 · 一条连续推理</span></div>
           </div>
-          <div class="cover-index"><span>发布演示</span><b>20 SLIDES · ONE STORY</b></div>
-          <div class="cover-hint">按 → 或空格开始</div>
           <div class="slide-folio">01</div>
+          <p class="speaker-notes" hidden>今天不从一个岗位名称讲起。我们只追问：模型能力越来越强以后，为什么企业仍然很难得到一个能在真实环境运行、能被业务验收、出了问题有人继续负责的系统？FDE 是报告对这组现实问题的回答。</p>
         </section>
 
-        <section class="slide slide--statement" data-scene="pulse" data-title="企业真正缺什么" data-chapter="开场" data-note="不要从职业定义讲起。先让听众看到矛盾：模型能力已经很多，真正稀缺的是让它进入现场并对结果负责的人。">
-          <div class="slide-head"><span>OPENING / THE GAP</span><span>能力不等于结果</span></div>
-          <div class="statement-copy">
-            <p class="eyebrow">企业今天真正缺的</p>
-            <h2>不是又一个 AI 演示，<br />而是一个<span>能上线、能验收、有人负责</span>的系统。</h2>
+        <section class="slide" data-scene="pulse" data-title="通用模型不等于生产结果" data-chapter="问题提出">
+          <div class="slide-head"><span>01 / THE INDUSTRIAL GAP</span><span>上一问：AI 为什么不会自动产生工业价值？</span></div>
+          <h2 class="main-judgment">企业获得通用模型，不等于获得生产结果。</h2>
+          <div class="visual-split">
+            <div class="logic-stack">
+              <article><span>通用模型已经提供</span><strong>理解 · 生成 · 推理 · 调工具 · 写代码</strong></article>
+              <div class="not-equal" aria-label="不等于">≠</div>
+              <article class="logic-stack__result"><span>生产系统还必须连接</span><strong>行业知识 · 企业数据 · 既有系统 · 组织责任</strong></article>
+              <p class="next-question">下一问：市场上已有许多相邻岗位，为什么仍需 FDE 统一识别？</p>
+            </div>
+            <figure class="evidence-figure">
+              <img src="assets/evidence-visuals/02-fde-on-site.png" alt="FDE在真实企业现场连接业务人员、生产系统与人工智能能力的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <div class="split-proof">
-            <div><small>模型已经会</small><strong>理解 · 生成 · 调工具</strong></div>
-            <i>≠</i>
-            <div><small>企业仍要解决</small><strong>数据 · 流程 · 权限 · 例外</strong></div>
-          </div>
+          <div class="source-line">来源：V67 摘要第 1、3 段；第二章第一至二节。边界：模型能力与生产责任并非彼此否定。</div>
           <div class="slide-folio">02</div>
+          <p class="speaker-notes" hidden>企业不缺一个会回答问题的模型。真正困难的是，模型必须知道这家企业的客户、数据、历史系统、审批权限和异常边界，最后还要有业务验收。模型提供通用能力，生产结果却发生在具体组织里。</p>
         </section>
 
-        <section class="slide slide--story" data-scene="flow" data-title="一笔加急订单" data-chapter="问题与角色" data-note="用制造业加急订单把抽象问题讲实：不是模型不会推理，而是现实分散在多个系统和多人判断里。">
-          <div class="slide-head"><span>01 / A REAL WORKFLOW</span><span>一笔制造业加急订单</span></div>
-          <div class="deck-title"><p class="eyebrow">客户问：三天后能不能交货？</p><h2>答案不在一个系统里。</h2></div>
-          <div class="order-flow">
-            <article><small>CRM</small><strong>客户承诺</strong><span>订单有多重要？</span></article>
-            <article><small>ERP</small><strong>库存与采购</strong><span>缺什么、何时到？</span></article>
-            <article><small>MES</small><strong>排产与质量</strong><span>插单会影响谁？</span></article>
-            <article class="order-human"><small>现场负责人</small><strong>权衡并签字</strong><span>接受哪一种风险？</span></article>
+        <section class="slide" data-scene="matrix" data-title="七类称呼必须回到同一责任标准" data-chapter="角色识别">
+          <div class="slide-head"><span>02 / NAMES TO FUNCTIONS</span><span>回答上一问：名称说明侧重，责任决定是不是 FDE</span></div>
+          <h2 class="main-judgment">七类称呼只是技术切口；四项连续责任才是统一标准。</h2>
+          <div class="role-grid" aria-label="七类FDE称呼与具体职能">
+            <article><span>AI FDE</span><strong>模型与智能体接入业务</strong></article>
+            <article><span>模型 FDE</span><strong>选择、评估、服务与失败反馈</strong></article>
+            <article><span>数据 FDE</span><strong>接入、语义、质量与治理</strong></article>
+            <article><span>云 FDE</span><strong>架构、迁移、权限与运行</strong></article>
+            <article><span>行业 FDE</span><strong>流程、规则、例外与验收</strong></article>
+            <article><span>软件 FDE</span><strong>定制开发、集成与生产交付</strong></article>
+            <article><span>解决方案 FDE</span><strong>跨产品形成场景方案并落地</strong></article>
           </div>
-          <p class="one-line">AI 可以比较方案；有人必须把系统接起来、明确边界，并对上线后的结果负责。</p>
-          <div class="source-line">来源：《全球FDE发展研究报告》V67，图 2-1 业务案例</div>
+          <div class="responsibility-rail"><span>真实现场</span><i>→</i><span>需求与验收</span><i>→</i><span>生产交付</span><i>→</i><span>运行改进</span></div>
+          <p class="next-question next-question--inline">下一问：不依赖头衔，FDE 应怎样正式定义？</p>
+          <div class="source-line">来源：V67 第一章第二至三节、图 1-2 相关文字。边界：七类为研究观察样本的命名分类，不是统一行业标准。</div>
           <div class="slide-folio">03</div>
+          <p class="speaker-notes" hidden>AI、模型、数据、云、行业、软件和解决方案分别强调不同入口，但不是七种彼此隔绝的职业。一个岗位即使叫 FDE，如果只负责售前演示，也不自动构成 FDE；相邻岗位只要四项责任完整贯通，也可能承担同构职责。</p>
         </section>
 
-        <section class="slide slide--definition" data-scene="core" data-title="FDE是什么" data-chapter="问题与角色" data-note="定义只保留观众能复述的一句话。四个阶段在下一页展开。">
-          <div class="slide-head"><span>02 / THE ROLE</span><span>Forward Deployed Engineer</span></div>
-          <div class="definition-word">FDE</div>
-          <div class="definition-copy">
-            <p class="eyebrow">一句话定义</p>
-            <h2>走进真实业务，<br />把 AI 系统<span>做成、上线、用起来</span>，<br />并对结果持续负责的人。</h2>
-          </div>
-          <div class="definition-note">头衔可以不同，责任不能中断。</div>
+        <section class="slide slide--definition" data-scene="core" data-title="FDE的正式定义" data-chapter="角色识别">
+          <div class="slide-head"><span>03 / DEFINITION</span><span>回答上一问：用责任而不是英文头衔下定义</span></div>
+          <p class="definition-kicker">本报告将 FDE 定义为</p>
+          <blockquote class="definition-quote">直接接触客户真实业务环境，基于现场信息形成需求规格与验收指标，将系统交付至客户生产环境，并在运行中持续迭代、对实际结果负责的职业角色。</blockquote>
+          <div class="definition-anchors"><span>接触现场</span><span>形成标准</span><span>交付生产</span><span>持续负责</span></div>
+          <p class="next-question next-question--inline">下一问：这四项责任怎样落实，又如何避免“一个人包办一切”？</p>
+          <div class="source-line">来源：V67 摘要第 1 段、第一章第三节。边界：允许团队协作与远程进入真实系统，不要求个人全栈包办。</div>
           <div class="slide-folio">04</div>
+          <p class="speaker-notes" hidden>FDE 不是更会写代码的售前，也不是换名的驻场开发。关键有四个：直接取得真实业务信息，与客户共同形成需求和验收，让系统进入生产，上线以后继续根据结果改进。</p>
         </section>
 
-        <section class="slide slide--steps" data-scene="trajectory" data-title="FDE到底做什么" data-chapter="问题与角色" data-note="四步用动词表达，不再使用术语堆叠。强调FDE不是包办所有劳动，而是保持责任连续。">
-          <div class="slide-head"><span>03 / FOUR ACTIONS</span><span>从问题到下一次改进</span></div>
-          <div class="deck-title"><p class="eyebrow">FDE 到底做什么</p><h2>四件事，一条线。</h2></div>
-          <ol class="plain-steps">
-            <li><b>01</b><strong>看现场</strong><span>看真实流程、数据和例外</span></li>
-            <li><b>02</b><strong>定标准</strong><span>和业务一起说清“怎样算成功”</span></li>
-            <li><b>03</b><strong>推上线</strong><span>让系统承受真实任务</span></li>
-            <li><b>04</b><strong>盯结果</strong><span>把问题带回下一轮修改</span></li>
+        <section class="slide" data-scene="trajectory" data-title="四项责任必须连续" data-chapter="角色识别">
+          <div class="slide-head"><span>04 / CONTINUOUS RESPONSIBILITY</span><span>回答上一问：专业分工存在，整体责任不能消失</span></div>
+          <h2 class="main-judgment">四项职责可以多人协作，但必须由明确主体保持整体责任。</h2>
+          <ol class="step-grid">
+            <li><b>01</b><strong>看现场</strong><span>取得真实数据、系统和业务人员信息</span></li>
+            <li><b>02</b><strong>定标准</strong><span>共同形成需求规格与成功标准</span></li>
+            <li><b>03</b><strong>推生产</strong><span>让系统承担真实负载并完成工程协作</span></li>
+            <li><b>04</b><strong>盯结果</strong><span>把运行问题持续带回下一版</span></li>
           </ol>
-          <p class="one-line one-line--center">FDE 对整条线负责，但安全、部署、运维等专业工作仍由相应工程人员承担。</p>
+          <div class="boundary-line"><b>专业边界</b><span>安全、复杂集成、部署与运维由相应工程人员按风险承担；FDE 维护问题、设计、验收与结果的连续性。</span></div>
+          <p class="next-question next-question--inline">下一问：这套职责已经形成真实职业，还是仍停留在理论归纳？</p>
+          <div class="source-line">来源：V67 第一章第三至四节、第二章第五节。边界：四项责任不是固定团队编制。</div>
           <div class="slide-folio">05</div>
+          <p class="speaker-notes" hidden>四件事可以说得很朴素：看现场、定标准、推生产、盯结果。FDE 可以调动架构、安全、测试、部署和运维人员，但必须有人一直知道最初解决什么问题、怎样算成功、上线以后发生了什么。</p>
         </section>
 
-        <section class="slide slide--metrics" data-scene="matrix" data-title="这个职业已经出现" data-chapter="问题与角色" data-note="三组数只证明职业已经可观察，不代表全球岗位总量。讲完数字后停顿，让观众读边界。">
-          <div class="slide-head"><span>04 / MARKET SIGNAL</span><span>研究样本，不是市场总量</span></div>
-          <div class="deck-title deck-title--compact"><p class="eyebrow">公开招聘与国内调研</p><h2>这已不是少数公司的内部叫法。</h2></div>
-          <div class="big-metrics">
-            <article><strong>5,856</strong><span>FDE 及高度相关岗位<br />公开观察样本</span></article>
-            <article><strong>685</strong><span>职责完整、可用于能力分析的<br />严格岗位样本</span></article>
-            <article><strong>45</strong><span>本报告确认的<br />国内相关企业</span></article>
+        <section class="slide" data-scene="matrix" data-title="FDE已经成为可观察职业领域" data-chapter="现实信号">
+          <div class="slide-head"><span>05 / MARKET SIGNAL</span><span>回答上一问：不同雇主已经把复合职责写入岗位与组织</span></div>
+          <h2 class="main-judgment">招聘与调研证明职责正在扩散，但样本不等于岗位总量。</h2>
+          <div class="metric-grid">
+            <article><strong>5,856</strong><span>FDE 及高度相关岗位<br />观察样本</span><small>用于名称与雇主分析</small></article>
+            <article><strong>685</strong><span>雇主正式发布且职责完整的<br />严格样本</span><small>用于职责与能力分析</small></article>
+            <article><strong>45</strong><span>报告调研确认的<br />国内相关企业</span><small>不代表全国企业总量</small></article>
           </div>
-          <div class="source-line">来源：报告研究数据库；检索与核对截至 2026-08-09。数字均不等同于全球或中国岗位存量。</div>
+          <div class="evidence-band"><b>685 份职位说明的共同底座</b><span>客户协作 · 系统接口 · Python · 智能体 · 大语言模型 · 云平台 · 数据工程</span></div>
+          <p class="next-question next-question--inline">下一问：类似工作过去也存在，为什么 AI 时代更需要端到端责任？</p>
+          <div class="source-line">来源：V67 第一章第二节、第三章第一节；研究数据库截至 2026-08-09。边界：三种口径不可相加。</div>
           <div class="slide-folio">06</div>
+          <p class="speaker-notes" hidden>报告观察到 5,856 个 FDE 及高度相关岗位，并从中取得 685 份职责完整的一手职位说明；国内调研确认了 45 家相关企业。数字证明职业可观察，不是全球或中国岗位存量。</p>
         </section>
 
-        <section class="slide slide--contrast" data-scene="flow" data-title="旧流程为何拖慢AI" data-chapter="为什么现在成立" data-note="用前后对比解释FDE价值。左边不是批评专业分工，而是说明多次转述在高频迭代中变得昂贵。">
-          <div class="slide-head"><span>05 / BEFORE &amp; AFTER</span><span>少一次转述，多一次真实反馈</span></div>
-          <div class="deck-title deck-title--compact"><p class="eyebrow">AI 让实现更快以后</p><h2>最慢的部分，变成了<span>等待与误解。</span></h2></div>
-          <div class="before-after">
-            <article class="before"><small>传统项目</small><div>业务 <i>→</i> 顾问 <i>→</i> 产品 <i>→</i> 开发 <i>→</i> 交付</div><strong>每次交接都重讲一遍</strong></article>
-            <article class="after"><small>FDE 方式</small><div>现场 <i>↔</i> FDE <i>↔</i> 系统</div><strong>运行结果直接进入下一版</strong></article>
+        <section class="slide" data-scene="flow" data-title="AI越快，交接越容易成为瓶颈" data-chapter="成立条件">
+          <div class="slide-head"><span>06 / HANDOFF BOTTLENECK</span><span>回答上一问：实现加速后，认知断裂占比上升</span></div>
+          <h2 class="main-judgment">AI 越快，跨部门转述、等待与上下文重建越可能拖慢整体交付。</h2>
+          <div class="handoff-layout">
+            <div class="handoff-copy">
+              <div class="handoff-contrast"><span>业务</span><i>→</i><span>顾问</span><i>→</i><span>产品</span><i>→</i><span>开发</span><i>→</i><span>交付</span></div>
+              <article class="embedded-case">
+                <b>文内案例 · 制造业加急订单</b>
+                <div><span>CRM<br />客户承诺</span><i>+</i><span>ERP<br />库存采购</span><i>+</i><span>MES<br />排产质量</span></div>
+                <p>AI 比较方案；业务负责人审批风险；FDE 打通接口、设置人工接管并组织验收。</p>
+              </article>
+              <p class="next-question">下一问：AI 的实现能力是否真的达到足以改变分工的水平？</p>
+            </div>
+            <figure class="evidence-figure">
+              <img src="assets/evidence-visuals/01-rush-order-system.png" alt="制造企业加急订单跨越CRM、ERP、MES与人工审批的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
+          <div class="source-line">来源：V67 第一章第四节、第二章图 2-1。边界：加急订单用于解释跨系统责任，不代表所有制造企业采用同一系统组合。</div>
           <div class="slide-folio">07</div>
+          <p class="speaker-notes" hidden>一笔加急订单的客户承诺在 CRM，库存采购在 ERP，排产质量在 MES。AI 可以比较方案，却不能替负责人决定愿意承担哪种风险。如果问题层层转述，代码生成再快，项目仍会被等待和误解拖住。</p>
         </section>
 
-        <section class="slide slide--experiment" data-scene="pulse" data-title="AI把实现速度推高了" data-chapter="为什么现在成立" data-note="这项现场试验只能说明编码助手提高了任务产出，不能直接推导完整企业项目也提升相同比例。">
-          <div class="slide-head"><span>06 / FIELD EXPERIMENT</span><span>AI 改变了实现环节</span></div>
-          <div class="experiment-number"><strong>+26.08%</strong><span>完成任务数量</span></div>
-          <div class="experiment-copy">
-            <p>微软对 <b>4,867 名软件开发者</b>开展三项随机现场试验，使用 AI 编码助手的组完成任务数量提高 26.08%。</p>
-            <div class="boundary-card"><small>它证明</small><strong>编码与项目实现可以更快</strong></div>
-            <div class="boundary-card"><small>它不证明</small><strong>模型能独立理解业务、上线系统并承担责任</strong></div>
+        <section class="slide" data-scene="pulse" data-title="AI已经改变部分实现劳动" data-chapter="成立条件">
+          <div class="slide-head"><span>07 / FIELD EXPERIMENT</span><span>回答上一问：实现条件已经变化，但生产责任没有消失</span></div>
+          <h2 class="main-judgment">AI 已稳定压缩部分实现劳动，但不能替代完整企业交付。</h2>
+          <div class="experiment-layout">
+            <div class="experiment-stat"><strong>+26.08%</strong><span>完成任务数量</span><p>微软对 <b>4,867 名软件开发者</b>开展三项随机现场试验</p></div>
+            <figure class="evidence-figure evidence-figure--wide">
+              <img src="assets/evidence-visuals/03-ai-engineering-acceleration.png" alt="软件工程师借助人工智能完成代码修改与测试辅助的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <div class="source-line">来源：Microsoft Research, The Effects of Generative AI on High-Skilled Work, 2025。</div>
+          <div class="proof-boundary"><article><b>它证明</b><span>编码、修改与测试辅助可以更快</span></article><article><b>它不证明</b><span>模型能独立界定业务、部署生产并承担结果</span></article></div>
+          <p class="next-question next-question--inline">下一问：局部实现提速怎样改变企业定制化的整笔账？</p>
+          <div class="source-line">来源：Microsoft Research, 2025；V67 第二章第四、六节。边界：26.08% 不等于完整项目周期、利润或企业生产率变化。</div>
           <div class="slide-folio">08</div>
+          <p class="speaker-notes" hidden>微软对 4,867 名开发者的三项随机现场试验显示，使用 AI 编码助手的组完成任务数量提高 26.08%。这证明实现环节改变了，却不能说明完整项目也按同样比例提效。</p>
         </section>
 
-        <section class="slide slide--economics" data-scene="curve" data-title="定制化开始算得过账" data-chapter="为什么现在成立" data-note="不要念三个术语。只讲过去为什么贵、今天哪三笔账变了。">
-          <div class="slide-head"><span>07 / THE NEW ECONOMICS</span><span>过去做不起的细分需求，开始可以试</span></div>
-          <div class="deck-title"><p class="eyebrow">真正的转折</p><h2>企业定制化，第一次开始<span>算得过账。</span></h2></div>
-          <div class="cost-bars">
-            <article><small>第一笔账</small><strong>做出第一版</strong><div><i style="--w:82%"></i><span>AI 减少资料、原型和基础编码成本</span></div></article>
-            <article><small>第二笔账</small><strong>少做错、少返工</strong><div><i style="--w:62%"></i><span>FDE 让问题、验收与结果由同一人持续理解</span></div></article>
-            <article><small>第三笔账</small><strong>下一家不从零开始</strong><div><i style="--w:45%"></i><span>接口、测试和行业方法可以复用</span></div></article>
+        <section class="slide" data-scene="curve" data-title="三股力量共同降低定制门槛" data-chapter="成立条件">
+          <div class="slide-head"><span>08 / NEW ECONOMICS</span><span>回答上一问：不是一笔编码费下降，而是三条成本路径同时变化</span></div>
+          <h2 class="main-judgment">AI、连续责任与行业复用，共同让更多细分需求越过经济可行线。</h2>
+          <div class="economics-grid">
+            <article><b>01</b><strong>首次实现成本下降</strong><span>资料、原型、基础编码、测试辅助与版本修改更快</span></article>
+            <article><b>02</b><strong>错判与返工减少</strong><span>FDE 持续理解问题、取舍、验收与运行反馈</span></article>
+            <article><b>03</b><strong>后续边际成本下降</strong><span>需求模板、接口、评估集、测试与组件进入下一项目</span></article>
           </div>
+          <div class="economics-outcome"><span>过去无法交易的需求</span><i>→</i><strong>预算更小 · 流程更细 · 变化更快，也开始可以验证</strong></div>
+          <div class="boundary-line"><b>完整成本仍在</b><span>复杂数据治理、系统集成、安全、部署与运维必须单独计价并承担责任。</span></div>
+          <p class="next-question next-question--inline">下一问：全球企业是否已围绕这套机制形成真实组织与经营？</p>
+          <div class="source-line">来源：V67 摘要第 5 段、第二章第三至六节。边界：报告透明情景不是市场平均成本。</div>
           <div class="slide-folio">09</div>
+          <p class="speaker-notes" hidden>AI 降低首次实现成本，FDE 减少交接错判与返工，同一行业的接口、规则和测试又能进入下一家客户。三股力量合起来，才让过去预算太小、需求太细的项目有机会成立。</p>
         </section>
 
-        <section class="slide slide--practice slide--supply" data-scene="trajectory" data-title="技术供给侧：把能力送进生产" data-chapter="全球证据" data-note="技术供给侧只讲三个主案例：Palantir、OpenAI Deployment Company、AWS。Palantir证明现场经验可以回流平台；OpenAI以独立部署公司延伸模型能力；AWS把客户小队、标准节奏和能力移交组合起来。Microsoft、Google Cloud、Anthropic、Tomoro只作为辅助证据，不另拆公司页。">
-          <div class="slide-head"><span>GLOBAL PRACTICE 01 / TECHNOLOGY SUPPLY</span><span>三种组织形态 · 同一个生产方向</span></div>
-          <div class="practice-heading"><div><p class="eyebrow">技术供给侧</p><h2>通用能力，必须有人把它<span>推到生产现场。</span></h2></div><p>平台、模型与云厂商正在把交付能力做成正式组织。</p></div>
-          <div class="practice-grid practice-grid--three">
-            <article class="practice-card practice-card--palantir">
-              <header><span class="company-sigil">PLTR</span><div><small>平台产品型</small><strong>Palantir</strong></div></header>
-              <div class="feedback-loop" aria-label="客户现场、AIP平台、产品复用的反馈回路"><span>客户现场</span><i>→</i><b>AIP</b><i>→</i><span>产品复用</span></div>
-              <h3>把现场经验写回平台</h3><p>FDE 接入数据、构建应用、训练用户；重复问题进入 Foundry / AIP。</p>
-              <footer><b>44.75 亿美元</b><span>2025 年营收 · 现场服务扩张为软件收入</span></footer>
-            </article>
-            <article class="practice-card practice-card--openai">
-              <header><span class="company-sigil">OAI</span><div><small>模型部署型</small><strong>OpenAI Deployment Company</strong></div></header>
-              <div class="deployment-constellation" aria-label="模型、部署公司和咨询伙伴的协作结构"><span>模型</span><i></i><b>部署公司</b><i></i><span>行业伙伴</span></div>
-              <h3>把模型能力延伸到完整交付</h3><p>从场景选择、系统构建到生产推广，由专门组织承接客户结果。</p>
-              <footer><b>约 150 名</b><span>通过 Tomoro 补充部署与行业专家</span></footer>
-            </article>
-            <article class="practice-card practice-card--aws">
-              <header><span class="company-sigil">AWS</span><div><small>云基础设施型</small><strong>AWS</strong></div></header>
-              <div class="delivery-dial" aria-label="AWS五至六人客户小组以四十五天标准节奏形成业务成果"><strong>45</strong><span>天标准节奏</span><small>5—6 人客户小组</small></div>
-              <h3>把速度与能力移交一起设计</h3><p>观察、共建、自主运行；系统、文档、手册和内部骨干同步交付。</p>
-              <footer><b>10 亿美元</b><span>专项投入面向客户的 AI 工程团队</span></footer>
-            </article>
+        <section class="slide" data-scene="trajectory" data-title="技术供给正在主动进入生产现场" data-chapter="全球证据">
+          <div class="slide-head"><span>09 / GLOBAL PRACTICE · TECHNOLOGY</span><span>回答上一问：平台、模型和云都已建立专门部署组织</span></div>
+          <h2 class="main-judgment">通用技术只有进入客户生产并把现场经验送回产品，才能形成持续收入。</h2>
+          <div class="global-layout">
+            <div class="global-cases">
+              <article><span>平台产品</span><strong>Palantir</strong><p>现场对象、接口与流程回流 Foundry / AIP</p><small>2021—2025 营收：15.42 亿 → 44.75 亿美元</small></article>
+              <article><span>模型部署</span><strong>OpenAI Deployment Company</strong><p>从场景选择、系统构建到生产推广形成专门组织</p><small>专门组织承接完整部署与客户结果</small></article>
+              <article><span>云基础设施</span><strong>AWS</strong><p>5—6 人客户小组：观察、共建、客户自主运行</p><small>10 亿美元投入；45 天为公开标准节奏</small></article>
+            </div>
+            <figure class="evidence-figure">
+              <img src="assets/evidence-visuals/04-global-technology-supply.png" alt="平台、模型与云企业的部署人员进入客户生产现场的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <div class="source-line">来源：Palantir 2025 Form 10-K / 8-K；OpenAI Deployment Company（2026-05-11）；AWS Forward Deployed AI Engineers（2026-06-30）。</div>
+          <p class="next-question next-question--inline">下一问：没有自有平台或模型的专业服务机构，能否围绕结果形成 FDE 交付？</p>
+          <div class="source-line">来源：V67 第三章第二节；Palantir 2025 Form 10-K/8-K；OpenAI 2026-05-11；AWS 2026-06-30。边界：三组数字不可横向相加。</div>
           <div class="slide-folio">10</div>
+          <p class="speaker-notes" hidden>Palantir 把现场经验写回平台；OpenAI 设立 Deployment Company，并通过 Tomoro 补充部署能力；AWS 用小组和标准节奏连接共建与客户自主运行。Anthropic、Microsoft、Google Cloud 只作为辅助观察，不增加主案例。</p>
         </section>
 
-        <section class="slide slide--practice slide--delivery" data-scene="flow" data-title="专业交付侧：把建议变成结果" data-chapter="全球证据" data-note="专业交付侧只讲安永与Sierra两个主案例。安永说明咨询机构可以把诊断继续推进到构建、上线和改进；Sierra说明结果合同如何迫使交付双方先定义可核验结果。Distyl AI只作为逐字稿中的辅助证据，不另拆公司页。">
-          <div class="slide-head"><span>GLOBAL PRACTICE 02 / PROFESSIONAL DELIVERY</span><span>从建议书走向生产结果</span></div>
-          <div class="practice-heading"><div><p class="eyebrow">专业交付侧</p><h2>客户买的不是方案，<br />而是<span>连续完成的结果。</span></h2></div><p>行业判断、工程建设与业务验收开始进入同一条交付线。</p></div>
-          <div class="delivery-pair">
-            <article class="delivery-case delivery-case--ey">
-              <div class="case-top"><span class="company-sigil">EY</span><div><small>咨询专业服务型</small><strong>安永</strong></div><em>UK &amp; IRELAND</em></div>
-              <div class="service-rail" aria-label="安永从诊断到系统持续改进的服务链"><span><b>01</b>诊断</span><i></i><span><b>02</b>构建</span><i></i><span><b>03</b>上线</span><i></i><span><b>04</b>改进</span></div>
-              <h3>行业方法不再止于咨询报告</h3><p>长期客户关系、行业方法与合规能力继续向系统构建和生产运行延伸。</p>
-            </article>
-            <article class="delivery-case delivery-case--sierra">
-              <div class="case-top"><span class="company-sigil">S</span><div><small>结果合同型</small><strong>Sierra</strong></div><em>OUTCOME PRICING</em></div>
-              <div class="outcome-orbit" aria-label="定义结果、连接系统、核验成果的结果合同闭环"><span>定义结果</span><i>→</i><b>连接系统</b><i>→</i><span>核验成果</span></div>
-              <h3>把“效果好”写进可核验合同</h3><p>客户侧工程团队共同设定结果、知识接入、人工转接与安全边界，并按运行数据迭代。</p>
-            </article>
+        <section class="slide" data-scene="flow" data-title="专业服务必须把建议推进到结果" data-chapter="全球证据">
+          <div class="slide-head"><span>10 / GLOBAL PRACTICE · DELIVERY</span><span>回答上一问：咨询与独立服务也能形成连续交付</span></div>
+          <h2 class="main-judgment">行业判断只有进入系统构建、生产运行与核验，才从方案劳动变成 FDE 交付。</h2>
+          <div class="delivery-layout">
+            <div class="delivery-cases">
+              <article><span>咨询实施型</span><strong>安永</strong><div><b>诊断</b><i>→</i><b>构建</b><i>→</i><b>上线</b><i>→</i><b>改进</b></div><p>在英国和爱尔兰设置 FDE 职能，把行业方法推进到生产结果。</p></article>
+              <article><span>结果合同型</span><strong>Sierra</strong><div><b>定义结果</b><i>→</i><b>连接系统</b><i>→</i><b>核验成果</b></div><p>共同设置知识接入、人工转接与安全边界，依据运行数据优化。</p></article>
+            </div>
+            <figure class="evidence-figure evidence-figure--wide">
+              <img src="assets/evidence-visuals/05-professional-service-go-live.png" alt="咨询与独立服务团队把方案推进到系统上线和业务验收的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <div class="boundary-ribbon"><b>共同边界</b><span>专业服务仍需进入真实系统并持续承担责任；结果付费只适合边界清楚、基线稳定、数据可核验的流程。</span></div>
-          <div class="source-line">来源：EY, EY Launches FDE Roles（2026-04）；Sierra, Outcome-Based Pricing for AI Agents 及客户侧工程资料。</div>
+          <div class="boundary-line"><b>适用边界</b><span>结果付费仅适用于边界清楚、基线稳定、数据可核验且外部影响可隔离的流程。</span></div>
+          <p class="next-question next-question--inline">下一问：五类路径跨越不同收入模式后，共同证明了什么？</p>
+          <div class="source-line">来源：V67 第三章第二节；EY 2026-04；Sierra 客户侧工程资料。边界：两个主案例不外推为行业普遍效果。</div>
           <div class="slide-folio">11</div>
+          <p class="speaker-notes" hidden>安永把诊断与方案继续推进到构建、上线和改进。Sierra 把可核验结果放入合同与运行机制，迫使双方先说清基线和核验方法。Distyl AI 只作为独立服务向产品能力回流的辅助证据。</p>
         </section>
 
-        <section class="slide slide--practice slide--synthesis" data-scene="pulse" data-title="五类案例共同证明什么" data-chapter="全球证据" data-note="第三页只做归纳。五个主案例一一对应五类实践：Palantir平台产品、OpenAI模型部署、AWS云基础设施、安永咨询专业服务、Sierra结果合同。五类共同证明的是责任连续、资产回流、客户自主运行和摆脱纯人力线性；同时提醒听众，现有成熟实践仍多服务大型客户，不能原样视为中国答案。">
-          <div class="slide-head"><span>GLOBAL PRACTICE 03 / SYNTHESIS</span><span>五类案例 · 四个共同机制</span></div>
-          <div class="practice-heading practice-heading--compact"><div><p class="eyebrow">全球实践的共同答案</p><h2>FDE 交付正在变成<span>可积累的组织能力。</span></h2></div></div>
-          <div class="synthesis-layout">
-            <div class="case-orbit-map" aria-label="五类全球实践及代表案例">
-              <div class="orbit-core"><small>共同内核</small><strong>真实问题<br />→ 生产结果</strong></div>
-              <article class="orbit-case orbit-case--one"><span>平台产品</span><b>Palantir</b></article>
-              <article class="orbit-case orbit-case--two"><span>模型部署</span><b>OpenAI DC</b></article>
-              <article class="orbit-case orbit-case--three"><span>云基础设施</span><b>AWS</b></article>
-              <article class="orbit-case orbit-case--four"><span>专业服务</span><b>EY</b></article>
-              <article class="orbit-case orbit-case--five"><span>结果合同</span><b>Sierra</b></article>
+        <section class="slide" data-scene="pulse" data-title="全球已经验证责任角色，但没有给出中国答案" data-chapter="全球证据">
+          <div class="slide-head"><span>11 / GLOBAL PRACTICE · SYNTHESIS</span><span>回答上一问：五类实践共享四个机制，也共享一个边界</span></div>
+          <h2 class="main-judgment">全球实践证明 FDE 能进入真实经营，却未证明重驻场模式可原样覆盖中国中小企业。</h2>
+          <div class="synthesis-grid">
+            <div class="five-to-four">
+              <div class="five-cases"><span>平台产品<br /><b>Palantir</b></span><span>模型部署<br /><b>OpenAI DC</b></span><span>云基础设施<br /><b>AWS</b></span><span>咨询实施<br /><b>安永</b></span><span>结果合同<br /><b>Sierra</b></span></div>
+              <div class="four-mechanisms"><article><b>责任连续</b><span>现场到反馈不再层层转手</span></article><article><b>资产回流</b><span>接口、评估和方法进入产品</span></article><article><b>客户自主</b><span>文档、培训与内部能力同步交付</span></article><article><b>摆脱人力线性</b><span>靠平台与复用而不是持续堆人</span></article></div>
             </div>
-            <div class="proof-stack">
-              <article><b>01</b><div><strong>责任连续</strong><span>从现场判断、验收标准到上线反馈，不再层层转手。</span></div></article>
-              <article><b>02</b><div><strong>资产回流</strong><span>业务对象、接口、评估方法和工程组件写回产品与方法。</span></div></article>
-              <article><b>03</b><div><strong>客户自主运行</strong><span>文档、培训、质量关口和内部骨干与系统一起交付。</span></div></article>
-              <article><b>04</b><div><strong>摆脱人力线性</strong><span>复用、平台与结果合同，让增长不只依赖继续堆人。</span></div></article>
-            </div>
+            <figure class="evidence-figure">
+              <img src="assets/evidence-visuals/06-customer-autonomous-operation.png" alt="客户团队在交付后能够自主运行和持续改进系统的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <div class="global-boundary"><strong>已经证明</strong><span>FDE 能连接生产、收入与组织积累。</span><i></i><strong>仍未证明</strong><span>高客单价、重工程的大客户模式能原样覆盖中国中小企业。</span></div>
-          <div class="source-line">来源：《全球FDE发展研究报告》V67 第三章；本页为五个主案例的机制归纳，不将单一案例外推为行业普遍效果。</div>
+          <div class="global-verdict"><b>已经证明</b><span>责任角色进入产品采用、模型调用、云用量、咨询服务与直接交付。</span><b>仍未证明</b><span>长期单位经济、中小企业覆盖与客户自主运营已经普遍成立。</span></div>
+          <p class="next-question next-question--inline">下一问：中国的产业结构要求怎样的不同路径？</p>
+          <div class="source-line">来源：V67 第三章第三至四节。边界：五个主案例不外推为所有企业的普遍效果。</div>
           <div class="slide-folio">12</div>
+          <p class="speaker-notes" hidden>五个主案例共同证明责任连续、资产回流、客户自主和摆脱纯人力线性。但成熟实践仍主要面向大型客户，常依赖较高客单价和较重工程投入，不能直接成为中国答案。</p>
         </section>
 
-        <section class="slide slide--china-data" data-scene="china" data-title="中国市场从哪里切入" data-chapter="中国路径" data-note="这页是中国篇的事实入口。数字来自9400余家专精特新中小企业调查，体现制造业数字化断层。">
-          <div class="slide-head"><span>13 / CHINA · THE GAP</span><span>9,400 余家专精特新中小企业调查</span></div>
-          <div class="deck-title deck-title--compact"><p class="eyebrow">制造业并不缺机器，缺的是系统之间的连接</p><h2>管理数字化，仍有明显断层。</h2></div>
-          <div class="adoption-bars">
-            <article><span>ERP</span><div><i style="--w:73.8%"></i></div><strong>73.8%</strong></article>
-            <article><span>MES</span><div><i style="--w:25.3%"></i></div><strong>25.3%</strong></article>
-            <article><span>数字化运维<br />通用设备制造</span><div><i style="--w:4.8%"></i></div><strong>4.8%</strong></article>
-            <article><span>数字化运维<br />汽车制造</span><div><i style="--w:3.6%"></i></div><strong>3.6%</strong></article>
+        <section class="slide" data-scene="china" data-title="中国机会来自中小企业与细分流程" data-chapter="中国路径">
+          <div class="slide-head"><span>12 / CHINA · THE GAP</span><span>回答上一问：中国需要覆盖数字化基础不均的广大企业</span></div>
+          <h2 class="main-judgment">中国的机会不是复制重驻场，而是让中小企业也能获得合身的定制系统。</h2>
+          <div class="china-layout">
+            <div class="adoption-panel">
+              <p>9,400 余家专精特新中小企业调查</p>
+              <article><span>ERP</span><div><i style="--value:73.8%"></i></div><strong>73.8%</strong></article>
+              <article><span>MES</span><div><i style="--value:25.3%"></i></div><strong>25.3%</strong></article>
+              <article><span>数字化运维 · 通用设备制造</span><div><i style="--value:4.8%"></i></div><strong>4.8%</strong></article>
+              <article><span>数字化运维 · 汽车制造</span><div><i style="--value:3.6%"></i></div><strong>3.6%</strong></article>
+              <blockquote>近期入口：连接旧系统、减少重复报表、让经营信息流动，而不是先替换产线。</blockquote>
+            </div>
+            <figure class="evidence-figure">
+              <img src="assets/evidence-visuals/07-china-industrial-cluster.png" alt="中国中小制造企业与产业集群中设备、人员和多套信息系统并存的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <p class="one-line">近期机会往往不是“替换产线”，而是连接旧系统、减少重复报表，让经营信息流动起来。</p>
-          <div class="source-line">来源：中国信息通信研究院，2024 年 9,400 余家专精特新中小企业调查。</div>
+          <p class="next-question next-question--inline">下一问：高度具体且数据敏感的问题，能否先从企业内部长出 FDE？</p>
+          <div class="source-line">来源：中国信通院《专精特新中小企业数字化转型研究报告（2024 年）》；V67 第四章。边界：调查不代表全部制造企业。</div>
           <div class="slide-folio">13</div>
+          <p class="speaker-notes" hidden>9,400 余家专精特新中小企业调查显示，ERP 采用较高，MES 和数字化运维明显较低。中国近期机会往往不是先替换生产线，而是连接已有系统、减少重复报表并组织经营信息。</p>
         </section>
 
-        <section class="slide slide--case" data-scene="core" data-title="星瀚律所从内部长出FDE" data-chapter="中国路径" data-note="这是内部FDE路径的具体例子。讲清楚为什么不能强推一个统一工具，以及专业人员怎样参与系统边界设计。">
-          <div class="slide-head"><span>14 / CASE · 上海星瀚律师事务所</span><span>专业服务业 · 内部培养</span></div>
-          <div class="deck-title"><p class="eyebrow">现实难题</p><h2>每位律师的工作方式不同，<br />案件资料又高度敏感。</h2></div>
-          <div class="case-sequence">
-            <article><small>没有做</small><strong>强制所有人换同一套工具</strong></article>
-            <i>→</i>
-            <article><small>而是做</small><strong>由法律背景成员组成科技小组</strong></article>
-            <i>→</i>
-            <article><small>逐一解决</small><strong>场景适配、本地部署与脱敏</strong></article>
+        <section class="slide" data-scene="core" data-title="内部FDE保留专业知识与长期责任" data-chapter="中国路径">
+          <div class="slide-head"><span>13 / CASE · INTERNAL FDE</span><span>回答上一问：最懂专业边界的人可以直接参与系统定义</span></div>
+          <h2 class="main-judgment">数据敏感、知识隐性、需要长期运行的场景，更适合从内部培养 FDE。</h2>
+          <div class="internal-layout">
+            <div class="case-path">
+              <p>上海星瀚律师事务所</p>
+              <article><b>现实约束</b><span>律师工作方式不同，案件资料高度敏感</span></article>
+              <i>↓</i>
+              <article><b>组织选择</b><span>不强制统一工具，由法律背景成员组成科技小组</span></article>
+              <i>↓</i>
+              <article><b>交付边界</b><span>逐一适配场景，以本地部署和脱敏满足安全要求</span></article>
+            </div>
+            <figure class="evidence-figure">
+              <img src="assets/evidence-visuals/08-internal-fde-secure-workflow.png" alt="企业内部专业人员与工程人员共同定义敏感数据和人工决策边界的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <blockquote class="case-lesson">最懂专业边界的人，参与定义 AI 能做什么、不能做什么。</blockquote>
-          <div class="source-line">来源：李泽辰访谈资料，2026-07-13；报告第四章案例。</div>
+          <p class="next-question next-question--inline">下一问：中小企业养不起完整团队时，外部行业型 FDE 怎样组织供给？</p>
+          <div class="source-line">来源：李泽辰访谈资料，2026-07-13；V67 第四章案例。边界：单一访谈案例不外推为法律行业普遍效果。</div>
           <div class="slide-folio">14</div>
+          <p class="speaker-notes" hidden>星瀚律所没有强制所有律师更换同一套工具，而是让法律背景成员组成科技小组，逐一适配场景并处理本地部署和脱敏。案例的意义在于最懂专业边界的人进入了需求、权限和验收。</p>
         </section>
 
-        <section class="slide slide--ha7ch" data-scene="network" data-title="HA7CH连接独立FDE" data-chapter="中国路径" data-note="这页不完整展开九宫格理论，只讲一个具体发现：不同企业首先关心的问题不同，因此交付方式必须随企业类型变化。">
-          <div class="slide-head"><span>15 / CASE · HA7CH</span><span>独立 FDE 的社群协作</span></div>
-          <div class="ha7ch-heading"><div><p class="eyebrow">Lawted 在四座城市组织线下交流后发现</p><h2>企业都在谈 AI，<br />但<span>首先关心的不是同一件事。</span></h2></div><span>深圳 · 上海 · 杭州 · 北京</span></div>
-          <div class="company-needs">
-            <article><small>小微企业</small><strong>能省多少钱？</strong><span>先看降本增效</span></article>
-            <article><small>成长型企业</small><strong>组织跟得上吗？</strong><span>先看流程与能力</span></article>
-            <article><small>国企 / 央企</small><strong>合规可审计吗？</strong><span>先看预算、数据与责任</span></article>
+        <section class="slide" data-scene="network" data-title="外部行业型FDE必须组合分散能力" data-chapter="中国路径">
+          <div class="slide-head"><span>14 / CASE · EXTERNAL FDE</span><span>回答上一问：社群、临时组队与行业复用降低单人约束</span></div>
+          <h2 class="main-judgment">外部行业型 FDE 必须重新组合需求、行业判断与工程能力。</h2>
+          <div class="external-layout">
+            <div class="external-copy">
+              <div class="network-core"><strong>HA7CH / FDE 加速器</strong><span>连接独立 FDE · 行业专家 · 开发者 · 企业需求</span></div>
+              <div class="need-grid">
+                <article><span>小微企业</span><strong>先问能省多少钱</strong><p>降本增效与轻量切入</p></article>
+                <article><span>成长型企业</span><strong>先问组织能否跟上</strong><p>流程、能力与工作系统</p></article>
+                <article><span>国企 / 央企</span><strong>先问是否合规可审计</strong><p>预算、数据、安全与责任</p></article>
+              </div>
+            </div>
+            <figure class="evidence-figure">
+              <img src="assets/evidence-visuals/09-external-industry-fde-unit.png" alt="独立FDE、行业专家和工程人员围绕企业场景临时组队的原创视觉示意" />
+              <figcaption>原创视觉示意，不作为事实证据</figcaption>
+            </figure>
           </div>
-          <p class="one-line">HA7CH 用社群与 FDE 加速器连接行业专家、开发者和企业需求，再按场景临时组队。</p>
-          <div class="source-line">来源：Lawted 访谈资料，2026-07-20；HA7CH 公开资料。</div>
+          <p class="next-question next-question--inline">下一问：内部与外部两条路径怎样协同，而不是彼此替代？</p>
+          <div class="source-line">来源：Lawted 访谈资料，2026-07-20；HA7CH 公开框架；V67 第四章案例一。边界：单一社群案例不代表市场规模。</div>
           <div class="slide-folio">15</div>
+          <p class="speaker-notes" hidden>HA7CH 用社群和 FDE 加速器连接独立从业者、行业专家、开发者和企业需求。Lawted 发现，不同企业首先关心的问题不同，因此问题选择、产品复杂度和验收口径也必须变化。</p>
         </section>
 
-        <section class="slide slide--model" data-scene="china" data-title="中国需要两条供给路径" data-chapter="中国路径" data-note="两条路径用人话讲：内部的人最懂本公司，外部的人可以服务多家同行。工程保障按风险配置。">
-          <div class="slide-head"><span>16 / CHINA · TWO PATHS</span><span>一个保留知识，一个分摊成本</span></div>
-          <div class="deck-title deck-title--compact"><p class="eyebrow">中国答案不是复制海外驻场</p><h2>让懂行业的人，离交付更近。</h2></div>
-          <div class="two-paths">
-            <article><span>A</span><small>企业内部</small><h3>把业务骨干培养成 FDE</h3><p>最懂本企业流程、数据和风险；适合核心、敏感、需要长期运营的场景。</p></article>
-            <article><span>B</span><small>企业外部</small><h3>让外部 FDE 服务多家同行</h3><p>同时服务多家同行，复用接口、测试和行业方法；适合中小企业与产业集群。</p></article>
+        <section class="slide" data-scene="china" data-title="中国需要内部与外部两条供给路径" data-chapter="中国路径">
+          <div class="slide-head"><span>15 / CHINA · TWO PATHS</span><span>回答上一问：一条保留企业知识，一条分摊行业成本</span></div>
+          <h2 class="main-judgment">中国特色道路是两条路径互补，并按风险调用专业生产工程能力。</h2>
+          <div class="path-grid">
+            <article><b>A</b><span>企业内部 FDE</span><strong>业务骨干补足 AI、架构与工程协作</strong><p>适合核心、敏感、知识隐性且需长期运行的场景；问题、权限和组织知识留在企业。</p></article>
+            <article><b>B</b><span>外部行业型 FDE</span><strong>同时服务多家同行并复用行业资产</strong><p>适合中小企业与阶段性需求；复用流程、接口、评估、测试和工程组件。</p></article>
           </div>
-          <div class="engineering-guard">复杂集成 · 安全 · 部署 · 运维 <i>→</i> 由专业工程人员按风险介入</div>
+          <div class="production-rail"><span>编程智能体：高频执行</span><i>+</i><span>专业生产工程：复杂集成 · 安全 · 测试 · 部署 · 运维</span><i>→</i><strong>同一业务结果</strong></div>
+          <p class="next-question next-question--inline">下一问：企业面对这套供给结构，第一步应该做什么？</p>
+          <div class="source-line">来源：V67 摘要第 7—9 段、第四章第二至四节。边界：两条路径可组合，不预设唯一人才来源或固定团队规模。</div>
           <div class="slide-folio">16</div>
+          <p class="speaker-notes" hidden>内部 FDE 保留本企业流程、权限和风险知识；外部行业型 FDE 跨企业复用接口、测试与行业方法。智能体负责高频执行，复杂生产责任由专业工程人员按风险介入。</p>
         </section>
 
-        <section class="slide slide--action" data-scene="trajectory" data-title="企业怎样开始" data-chapter="行动" data-note="给企业一个可执行但不承诺固定周期的起步路径：选一个有价值且能验收的流程，小步上线，再决定是否扩展。">
-          <div class="slide-head"><span>17 / START SMALL</span><span>不要从“全面智能化”开始</span></div>
-          <div class="deck-title"><p class="eyebrow">企业第一步</p><h2>先选一个<span>结果说得清</span>的流程。</h2></div>
-          <ol class="start-steps">
-            <li><b>1</b><div><strong>找一件真问题</strong><span>高频、费时、已有数据，业务负责人愿意参与</span></div></li>
-            <li><b>2</b><div><strong>先写验收标准</strong><span>速度、差错、人工接管或经营结果，至少选一项</span></div></li>
-            <li><b>3</b><div><strong>小步进入真实环境</strong><span>保留人工兜底，用运行结果决定下一版</span></div></li>
+        <section class="slide" data-scene="trajectory" data-title="企业应从一个可验收流程开始" data-chapter="行动与验收">
+          <div class="slide-head"><span>16 / START FROM A REAL FLOW</span><span>回答上一问：以小范围真实生产验证代替宏大规划</span></div>
+          <h2 class="main-judgment">企业不应从“全面智能化”开始，而应先选一个结果说得清的流程。</h2>
+          <ol class="action-grid">
+            <li><b>01</b><strong>选真问题</strong><span>高频、有价值、数据可得，业务负责人有权推动</span></li>
+            <li><b>02</b><strong>先写验收</strong><span>明确业务指标、人工接管、权限、安全与退出安排</span></li>
+            <li><b>03</b><strong>小步进生产</strong><span>保留人工兜底，让运行结果决定是否扩展</span></li>
           </ol>
+          <div class="logic-callout"><span>不要写</span><del>建设企业大模型</del><i>→</i><span>应该写</span><strong>哪项业务结果改善到什么程度</strong></div>
+          <p class="next-question next-question--inline">下一问：试点上线后，怎样区分真实交付成功与一次演示成功？</p>
+          <div class="source-line">来源：V67 第五章第七节“企业行动”、第二章第四与六节。边界：不承诺固定周期或固定 ROI。</div>
           <div class="slide-folio">17</div>
+          <p class="speaker-notes" hidden>不要从建设企业大模型开始。先选一件高频、有数据、有人负责的真问题；开发前写清怎样算成功和何时人工接管；再让小版本进入真实环境，用运行结果决定下一步。</p>
         </section>
 
-        <section class="slide slide--measure" data-scene="matrix" data-title="什么才算交付成功" data-chapter="行动" data-note="用可观察指标替代“赋能、闭环、生态”等口号。不同业务使用各自口径，不应合成一个跨行业通用分数。">
-          <div class="slide-head"><span>18 / MEASURE RESULTS</span><span>上线不是终点</span></div>
-          <div class="deck-title deck-title--compact"><p class="eyebrow">验收看四件事</p><h2>结果要能被业务读懂。</h2></div>
-          <div class="measure-grid">
-            <article><b>产出</b><strong>更快或更多了吗？</strong><span>完成周期、问题解决率、有效转化</span></article>
-            <article><b>质量</b><strong>差错和返工少了吗？</strong><span>准确率、故障、人工接管</span></article>
-            <article><b>运行</b><strong>能稳定使用吗？</strong><span>发布频率、可用性、回滚</span></article>
-            <article><b>自主</b><strong>客户能自己运营吗？</strong><span>培训、文档、日常变更能力</span></article>
+        <section class="slide" data-scene="matrix" data-title="交付成功需要四组运行证据" data-chapter="行动与验收">
+          <div class="slide-head"><span>17 / PRODUCTION EVIDENCE</span><span>回答上一问：系统上线只是接受检验的开始</span></div>
+          <h2 class="main-judgment">业务结果、系统质量、客户自主与跨项目复用，必须同时经得住验证。</h2>
+          <div class="evidence-grid">
+            <article><b>业务结果</b><strong>流程真的改善了吗？</strong><span>完成周期 · 问题解决率 · 有效转化 · 行业指标</span></article>
+            <article><b>系统质量</b><strong>稳定且可以恢复吗？</strong><span>准确 · 故障 · 返工 · 人工接管 · 回滚</span></article>
+            <article><b>客户自主</b><strong>日常运营还依赖外驻吗？</strong><span>文档 · 培训 · 变更 · 权限 · 退出能力</span></article>
+            <article><b>跨项目复用</b><strong>下一项目是否从已有资产开始？</strong><span>需求模板 · 接口 · 测试集 · 异常处理 · 组件</span></article>
           </div>
-          <div class="source-line">来源：报告第二章“效果证据”与第三章“组织成熟度”评价口径。</div>
+          <div class="boundary-line"><b>评价方法</b><span>各行业只在同一系统、同一业务口径内连续比较，不合成跨行业通用分数。</span></div>
+          <p class="next-question next-question--inline">下一问：效率与质量改善以后，收益应该进入哪里？</p>
+          <div class="source-line">来源：V67 第二章第四、六节，第三章第三节，第五章第七节。边界：建设期较高人工投入不等于组织失败。</div>
           <div class="slide-folio">18</div>
+          <p class="speaker-notes" hidden>上线只是系统开始接受检验。业务结果、系统质量、客户自主和跨项目复用必须同时改善；复用增加却带来更多故障，只是把成本转移给客户。</p>
         </section>
 
-        <section class="slide slide--benefit" data-scene="pulse" data-title="效率最终要被分享" data-chapter="结论" data-note="宏观结论只讲条件，不夸张外推。企业利润、劳动者发展和产业覆盖要同时成立。">
-          <div class="slide-head"><span>19 / WHO BENEFITS</span><span>效率不是终点</span></div>
-          <div class="deck-title"><p class="eyebrow">一套健康的 FDE 模式</p><h2>让效率进入<span>利润、能力与产业活力。</span></h2></div>
+        <section class="slide" data-scene="pulse" data-title="效率必须转化为企业、劳动者与产业收益" data-chapter="结论">
+          <div class="slide-head"><span>18 / VALUE DISTRIBUTION</span><span>回答上一问：效率不是终点，传导条件决定长期价值</span></div>
+          <h2 class="main-judgment">FDE 只有让企业、劳动者和更多中小企业共同受益，才形成健康产业价值。</h2>
           <div class="benefit-grid">
-            <article><span>企业</span><strong>更低重复成本</strong><p>保留行业知识，继续投资数智能力</p></article>
-            <article><span>劳动者</span><strong>减少重复劳动</strong><p>通过转岗、提能和激励分享收益</p></article>
-            <article><span>产业</span><strong>中小企业也能用</strong><p>行业经验变成可复用服务</p></article>
+            <article><span>企业</span><strong>持续投资能力</strong><p>减少重复成本，提高质量与迭代密度，形成继续投入数智能力的空间。</p></article>
+            <article><span>劳动者</span><strong>能力与发展机会</strong><p>从标准执行转向问题判断、流程建模、例外处理、系统组织和验收。</p></article>
+            <article><span>产业</span><strong>更广技术覆盖</strong><p>行业资产复用与更短服务半径，让中小企业也能获得合身系统。</p></article>
           </div>
+          <div class="boundary-line"><b>成立条件</b><span>若效率只表现为裁员、强度上升或供应商锁定，不能推出劳动者发展与高质量增长。</span></div>
+          <p class="next-question next-question--inline">最后一问：模型继续变强以后，FDE 为什么仍有长期存在的理由？</p>
+          <div class="source-line">来源：V67 摘要末段、第五章第五至六节。边界：不从单个项目推导利润、就业或宏观增长。</div>
           <div class="slide-folio">19</div>
+          <p class="speaker-notes" hidden>效率必须进入企业持续投资、劳动者能力发展和中小企业可获得的数智能力。FDE 不是新质生产力本身，而是把通用 AI 转化为企业现场可验证生产能力的一种职业载体。</p>
         </section>
 
-        <section class="slide slide--release" data-scene="release" data-title="全篇结论" data-chapter="结论" data-note="最后只留一个判断：企业现实不可能预先写完，因此把AI变成生产结果的责任不会消失。">
+        <section class="slide slide--release" data-scene="release" data-title="FDE长期存在的理由" data-chapter="结论">
           <div class="release-orbit" aria-hidden="true"><span></span><span></span><i></i></div>
           <div class="release-content">
-            <p class="eyebrow">GLOBAL FDE DEVELOPMENT REPORT / 2026</p>
-            <h2>模型会继续变强，<br />但企业现实<span>不会自动变简单。</span></h2>
-            <p>只要真实流程仍有例外，只要系统仍需在运行中修正，就需要有人把人工智能能力变成可验收的生产结果，并把责任一直承担下去。</p>
-            <div class="final-line"><strong>这就是 FDE 长期存在的理由。</strong></div>
+            <p class="eyebrow">19 / FINAL ANSWER</p>
+            <h2>FDE 长期存在，<br />不是因为模型还不够强。</h2>
+            <blockquote>企业现实始终需要有人把行业经验、系统取舍、组织协调和结果责任，持续组织成可运行、可验收、可改进的生产能力。</blockquote>
+            <div class="final-loop"><span>通用能力进入具体产业</span><i>→</i><span>真实结果形成</span><i>→</i><span>运行反馈进入下一版</span></div>
             <div class="release-meta"><strong>上海市大数据社会应用研究会</strong><a class="download-report" href="assets/全球FDE发展研究报告-v67-摘要定稿版-20260810.pdf" target="_blank" rel="noopener" download="全球FDE发展研究报告-v67-摘要定稿版-20260810.pdf">打开 V67 完整报告 <i aria-hidden="true">↗</i></a></div>
           </div>
-          <div class="release-label">DATA<br />&amp; CASES</div>
           <div class="slide-folio">20</div>
+          <p class="speaker-notes" hidden>模型会继续变强，但企业的客户结构、流程例外、历史系统、权限、安全、组织协调和结果责任不会自动消失。FDE 的长期价值，是持续把行业经验和 AI 执行组织成最终由企业掌握的生产系统。</p>
         </section>
       </div>
     </main>
 
     <aside id="outline-panel" class="outline-panel" aria-label="幻灯片导航" aria-hidden="true"><div class="panel-head"><strong>演示提纲</strong><button type="button" data-action="outline" aria-label="关闭提纲">关闭</button></div><ol id="outline-list"></ol></aside>
-    <aside id="notes-panel" class="notes-panel" aria-label="演讲提示" aria-hidden="true"><span>演讲提示</span><p id="notes-copy"></p></aside>
-    <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-title"><h2 id="help-title">演示快捷键</h2><dl><div><dt>← / → / Space</dt><dd>翻页</dd></div><div><dt>Home / End</dt><dd>首尾页</dd></div><div><dt>F</dt><dd>全屏</dd></div><div><dt>O</dt><dd>提纲</dd></div><div><dt>N</dt><dd>演讲提示</dd></div><div><dt>?</dt><dd>快捷键</dd></div></dl><button type="button" data-action="help">知道了</button></dialog>
-    <footer class="controls" aria-label="演示控制栏"><button type="button" data-action="outline" aria-label="打开幻灯片提纲">提纲</button><button type="button" data-action="previous" aria-label="上一页">←</button><span class="page-count"><b id="current-page">01</b><i>/</i><span id="total-pages">20</span></span><button type="button" data-action="next" aria-label="下一页">→</button><button type="button" data-action="notes" aria-label="显示或隐藏演讲提示">备注</button><button type="button" data-action="fullscreen" aria-label="切换全屏">全屏</button><button type="button" data-action="help" aria-label="打开快捷键帮助">?</button></footer>
+    <aside id="notes-panel" class="notes-panel" aria-label="演讲提示" aria-hidden="true"><span>逐字稿提示</span><p id="notes-copy"></p></aside>
+    <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-title"><h2 id="help-title">演示快捷键</h2><dl><div><dt>← / → / Space</dt><dd>翻页</dd></div><div><dt>Home / End</dt><dd>首尾页</dd></div><div><dt>F</dt><dd>全屏</dd></div><div><dt>O</dt><dd>提纲</dd></div><div><dt>N</dt><dd>逐字稿提示</dd></div><div><dt>?</dt><dd>快捷键</dd></div></dl><button type="button" data-action="help">知道了</button></dialog>
+    <footer class="controls" aria-label="演示控制栏"><button type="button" data-action="outline" aria-label="打开幻灯片提纲">提纲</button><button type="button" data-action="previous" aria-label="上一页">←</button><span class="page-count"><b id="current-page">01</b><i>/</i><span id="total-pages">20</span></span><button type="button" data-action="next" aria-label="下一页">→</button><button type="button" data-action="notes" aria-label="显示或隐藏逐字稿提示">逐字稿</button><button type="button" data-action="fullscreen" aria-label="切换全屏">全屏</button><button type="button" data-action="help" aria-label="打开快捷键帮助">?</button></footer>
     <script src="scripts/deck.js" defer></script>
   </body>
 </html>

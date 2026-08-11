@@ -96,7 +96,7 @@
 
     const activeSlide = slides[current];
     const title = activeSlide.dataset.title || `第 ${current + 1} 页`;
-    const note = activeSlide.dataset.note || "";
+    const note = activeSlide.querySelector(".speaker-notes")?.textContent.trim() || activeSlide.dataset.note || "";
     const percent = ((current + 1) / slides.length) * 100;
 
     progressBar.style.width = `${percent}%`;
