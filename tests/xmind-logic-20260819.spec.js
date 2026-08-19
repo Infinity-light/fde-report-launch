@@ -3,6 +3,13 @@ import { expect, test } from "@playwright/test";
 const PAGE_PATH = "/xmind-logic-20260819/";
 const ROOT_TITLE = "全球FDE发展研究报告";
 const STAGES = [
+  "01 FDE的兴起与定义",
+  "02 FDE的运行与商业机制",
+  "03 FDE的全球实践与证据边界",
+  "04 FDE在中国的发展条件与落地路径",
+  "05 FDE的未来影响与主体行动",
+];
+const REMOVED_STAGE_LABELS = [
   "01 识别对象",
   "02 解释成立机制",
   "03 检验全球实践",
@@ -94,6 +101,7 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   });
   expect(model.tree.content).toBe(ROOT_TITLE);
   expect(model.tree.children.map((stage) => stage.content)).toEqual(STAGES);
+  expect(model.tree.children.map((stage) => stage.content)).not.toEqual(expect.arrayContaining(REMOVED_STAGE_LABELS));
   expect(model.tree.children.flatMap((stage) => stage.children)).toHaveLength(28);
   expect(new Set(Object.values(model.manifest.logicTypes)).size).toBe(19);
   expect(model.manifest.defaultExpandLevel).toBe(2);
@@ -129,7 +137,7 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   expect(first.children[2].children[0].content).toBe("通用AI不能自动进入真实生产");
   expect(first.children[3].children[0].content).toBe("缺少贯通现场到结果的责任角色");
 
-  await clickNode(page, "01 识别对象");
+  await clickNode(page, "01 FDE的兴起与定义");
   await expect.poll(async () => (await visibleTexts(page)).includes("为什么FDE突然受到关注？")).toBe(true);
   await clickNode(page, "为什么FDE突然受到关注？");
   const openedQuestion = await visibleTexts(page);
