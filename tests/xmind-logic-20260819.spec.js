@@ -2,14 +2,15 @@ import { expect, test } from "@playwright/test";
 
 const PAGE_PATH = "/xmind-logic-20260819/";
 const ROOT_TITLE = "全球FDE发展研究报告";
-const STAGES = [
-  "01 FDE的兴起与定义",
-  "02 FDE的运行与商业机制",
-  "03 FDE的全球实践与证据边界",
-  "04 FDE在中国的发展条件与落地路径",
-  "05 FDE的未来影响与主体行动",
+const TOTAL_QUESTION = "FDE能否成为AI进入企业生产的有效且可持续模式？";
+const BRANCH_QUESTIONS = [
+  "FDE究竟是什么，如何与既有岗位区分？",
+  "全球FDE热潮是否对应真实、独立的FDE实践？",
+  "FDE通过什么机制产生结果，又在什么条件下失效？",
+  "FDE在中国能否形成可复制、经济可持续的模式？",
+  "若前述检验成立，FDE可能带来哪些产业与劳动影响？",
 ];
-const REMOVED_STAGE_LABELS = [
+const REMOVED_GENERIC_LABELS = [
   "01 识别对象",
   "02 解释成立机制",
   "03 检验全球实践",
@@ -80,8 +81,8 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   await expect(page).toHaveTitle("全球FDE发展研究报告｜论证地图");
 
   const initial = await visibleTexts(page);
-  expect(initial).toHaveLength(6);
-  expect(new Set(initial)).toEqual(new Set([...STAGES, ROOT_TITLE]));
+  expect(initial).toHaveLength(7);
+  expect(new Set(initial)).toEqual(new Set([ROOT_TITLE, TOTAL_QUESTION, ...BRANCH_QUESTIONS]));
   expect(initial).not.toContain("为什么FDE突然受到关注？");
 
   const model = await page.evaluate(() => {
@@ -100,48 +101,63 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
     };
   });
   expect(model.tree.content).toBe(ROOT_TITLE);
-  expect(model.tree.children.map((stage) => stage.content)).toEqual(STAGES);
-  expect(model.tree.children.map((stage) => stage.content)).not.toEqual(expect.arrayContaining(REMOVED_STAGE_LABELS));
-  expect(model.tree.children.flatMap((stage) => stage.children)).toHaveLength(28);
+  expect(model.tree.children).toHaveLength(1);
+  expect(model.tree.children[0].content).toBe(TOTAL_QUESTION);
+  expect(model.tree.children[0].children.map((branch) => branch.content)).toEqual(BRANCH_QUESTIONS);
+  expect(model.tree.children[0].children.map((branch) => branch.content)).not.toEqual(expect.arrayContaining(REMOVED_GENERIC_LABELS));
+  expect(model.manifest.researchQuestion).toBe(TOTAL_QUESTION);
+  expect(model.manifest.branchQuestions).toEqual(BRANCH_QUESTIONS);
+  expect(model.manifest.branchRoles).toEqual(["prerequisite", "test", "test", "test", "conditional_inference"]);
+  expect(model.manifest.questionCount).toBe(28);
+  expect(model.manifest.evidenceCount).toBe(93);
   expect(new Set(Object.values(model.manifest.logicTypes)).size).toBe(19);
-  expect(model.manifest.defaultExpandLevel).toBe(2);
+  expect(model.manifest.defaultExpandLevel).toBe(3);
 
-  const questions = model.tree.children.flatMap((stage) => stage.children);
+  const branches = model.tree.children[0].children;
+  for (const branch of branches) {
+    expect(branch.children[0].content).toBe("直接回答");
+    expect(branch.children[1].content).toBe("判断标准");
+    expect(branch.children.at(-2).content).toBe("本分支证据边界");
+    expect(branch.children.at(-1).content).toBe("推向下一问");
+  }
+  const questions = branches.flatMap((branch) => branch.children.filter((child) =>
+    child.content.endsWith("？") && !BRANCH_QUESTIONS.includes(child.content)));
+  expect(questions).toHaveLength(28);
   const supportSignatures = [];
   for (const question of questions) {
     expect(question.content).toMatch(/？$/);
     expect(question.content).not.toMatch(/[:：]/);
-    expect(question.children[0].content.length).toBeGreaterThan(3);
-    expect(question.children.at(-3).content).toBe("证据与出处");
-    expect(question.children.at(-2).content).toBe("适用边界");
-    expect(question.children.at(-1).content).toBe("转向下一问");
-    const support = question.children.slice(1, -3).map((child) => child.content);
+    expect(question.children[0].content).toBe("直接回答");
+    expect(question.children[0].children[0].content.length).toBeGreaterThan(3);
+    expect(question.children.at(-2).content).toBe("证据");
+    expect(question.children.at(-1).content).toBe("适用边界");
+    const support = question.children.slice(1, -2).map((child) => child.content);
     expect(support.length).toBeGreaterThanOrEqual(2);
     supportSignatures.push(support.join("→"));
   }
   expect(new Set(supportSignatures).size).toBeGreaterThanOrEqual(19);
 
-  const first = model.tree.children[0].children[0];
+  const first = branches[1].children.find((child) => child.content === "为什么FDE突然受到关注？");
   expect(first.content).toBe("为什么FDE突然受到关注？");
   expect(first.children.map((child) => child.content)).toEqual([
-    "政府、企业、资本与劳动者同时遇到AI落地难题",
+    "直接回答",
     "四类主体难题",
     "共同原因",
     "共同缺口",
     "由此受到关注",
-    "证据与出处",
+    "证据",
     "适用边界",
-    "转向下一问",
   ]);
   expect(first.children[1].children.map((child) => child.content)).toEqual(["政府", "企业", "资本", "劳动者"]);
-  expect(first.children[2].children[0].content).toBe("通用AI不能自动进入真实生产");
-  expect(first.children[3].children[0].content).toBe("缺少贯通现场到结果的责任角色");
+  expect(first.children[0].children[0].content).toBe("通用AI不能自动进入生产且缺少连续责任主体，因此注意力转向FDE");
+  expect(first.children[2].children[0].content).toBe("通用AI不能自动进入生产");
+  expect(first.children[3].children[0].content).toBe("缺少连续承担企业现场到生产结果责任的主体");
 
-  await clickNode(page, "01 FDE的兴起与定义");
+  await clickNode(page, BRANCH_QUESTIONS[1]);
   await expect.poll(async () => (await visibleTexts(page)).includes("为什么FDE突然受到关注？")).toBe(true);
   await clickNode(page, "为什么FDE突然受到关注？");
   const openedQuestion = await visibleTexts(page);
-  expect(openedQuestion).toContain("政府、企业、资本与劳动者同时遇到AI落地难题");
+  expect(openedQuestion).toContain("直接回答");
   expect(openedQuestion).toContain("四类主体难题");
   expect(openedQuestion).toContain("共同原因");
   expect(openedQuestion).toContain("共同缺口");
@@ -171,9 +187,9 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   const svgBox = await svg.boundingBox();
   expect(svgBox).not.toBeNull();
   const dragBefore = await svg.evaluate((element) => ({ x: element.__zoom.x, y: element.__zoom.y }));
-  await page.mouse.move(svgBox.x + svgBox.width * 0.48, svgBox.y + svgBox.height * 0.48);
+  await page.mouse.move(svgBox.x + svgBox.width * 0.08, svgBox.y + svgBox.height * 0.08);
   await page.mouse.down();
-  await page.mouse.move(svgBox.x + svgBox.width * 0.58, svgBox.y + svgBox.height * 0.56, { steps: 5 });
+  await page.mouse.move(svgBox.x + svgBox.width * 0.18, svgBox.y + svgBox.height * 0.16, { steps: 5 });
   await page.mouse.up();
   const dragAfter = await svg.evaluate((element) => ({ x: element.__zoom.x, y: element.__zoom.y }));
   expect(dragAfter).not.toEqual(dragBefore);
