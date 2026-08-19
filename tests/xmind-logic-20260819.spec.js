@@ -1,4 +1,3 @@
-import crypto from "node:crypto";
 import { expect, test } from "@playwright/test";
 
 const PAGE_PATH = "/xmind-logic-20260819/";
@@ -193,9 +192,19 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
 
   const download = page.locator(".fde-download");
   await expect(download).toHaveAttribute("href", "global-fde-report-xmind-logic-20260819.xmind");
-  const downloadResponse = await page.request.get(new URL("global-fde-report-xmind-logic-20260819.xmind", page.url()).href);
-  expect(downloadResponse.status()).toBe(200);
-  expect(crypto.createHash("sha256").update(await downloadResponse.body()).digest("hex")).toBe(model.manifest.xmindSha256);
+  const downloaded = await page.evaluate(async () => {
+    const response = await fetch("global-fde-report-xmind-logic-20260819.xmind", { cache: "no-store" });
+    const buffer = await response.arrayBuffer();
+    const digest = await crypto.subtle.digest("SHA-256", buffer);
+    return {
+      status: response.status,
+      bytes: buffer.byteLength,
+      sha256: [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join(""),
+    };
+  });
+  expect(downloaded.status).toBe(200);
+  expect(downloaded.bytes).toBeGreaterThan(100_000);
+  expect(downloaded.sha256).toBe(model.manifest.xmindSha256);
 
   await testInfo.attach(`${testInfo.project.name}-expanded.png`, {
     body: await page.screenshot(),
