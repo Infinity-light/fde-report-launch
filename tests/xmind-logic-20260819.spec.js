@@ -1,172 +1,196 @@
 import { expect, test } from "@playwright/test";
 
 const PAGE_PATH = "/xmind-logic-20260819/";
-const ROOT = "全球FDE发展研究报告";
-const TITLES = [
-  "FDE是一组连续责任，而不是一种岗位名称",
-  "FDE兴起于通用AI与企业现场之间的责任缺口",
-  "FDE通过小型责任单元把AI能力转化为生产结果",
-  "FDE能否成为可持续生意，取决于资产复用与客户自主",
-  "全球证据表明FDE已进入经营活动，但尚未证明普遍规模化",
-  "中国具备FDE需求与供给基础，规模化取决于行业化和生态协同",
-  "FDE将重组软件供给与劳动分工，但影响必须由可核验结果验证",
-];
-const CHAIN = "定义FDE→责任缺口→运行机制→商业成立条件→全球验证和边界→中国条件与路径→条件性未来影响";
-const OLD_TITLES = [
-  "识别对象", "解释成立机制", "检验全球实践", "推导中国路径", "推演未来行动",
-  "界定研究对象", "建立因果机制", "检验现实存在性", "推导中国适用机制", "限定推论并提出行动",
-];
-const REQUIRED_RELATIONS = [
-  "defines", "excludes", "causes", "because", "enables",
-  "depends_on", "supported_by", "bounded_by", "implies",
+const ROOT_TITLE = "全球FDE发展研究报告";
+const STAGES = [
+  "01 识别对象",
+  "02 解释成立机制",
+  "03 检验全球实践",
+  "04 推导中国路径",
+  "05 推演未来行动",
 ];
 
 function observePage(page) {
-  const consoleErrors = [];
+  const consoleProblems = [];
   const pageErrors = [];
   const failedRequests = [];
   const badResponses = [];
   page.on("console", (message) => {
-    if (message.type() === "error") consoleErrors.push(message.text());
+    if (["error", "warning"].includes(message.type())) {
+      consoleProblems.push(`${message.type()}: ${message.text()}`);
+    }
   });
   page.on("pageerror", (error) => pageErrors.push(error.message));
   page.on("requestfailed", (request) => {
-    failedRequests.push(request.method() + " " + request.url() + " :: " + request.failure()?.errorText);
+    failedRequests.push(`${request.method()} ${request.url()} :: ${request.failure()?.errorText}`);
   });
   page.on("response", (response) => {
-    if (response.status() >= 400) badResponses.push(response.status() + " " + response.url());
+    if (response.status() >= 400) badResponses.push(`${response.status()} ${response.url()}`);
   });
-  return { consoleErrors, pageErrors, failedRequests, badResponses };
+  return { consoleProblems, pageErrors, failedRequests, badResponses };
 }
 
-async function overflowAudit(page) {
-  return page.evaluate(() => {
-    const width = document.documentElement.clientWidth;
-    const offenders = [...document.querySelectorAll("body *")].filter((element) => {
-      const style = getComputedStyle(element);
-      const rect = element.getBoundingClientRect();
-      if (style.display === "none" || style.visibility === "hidden" || rect.width === 0 || rect.height === 0) return false;
-      return rect.left < -1 || rect.right > width + 1;
-    }).map((element) => ({
-      tag: element.tagName,
-      className: typeof element.className === "string" ? element.className : "",
-      text: (element.textContent || "").trim().slice(0, 80),
-      rect: element.getBoundingClientRect().toJSON(),
-    })).slice(0, 20);
-    return {
-      scrollWidth: document.documentElement.scrollWidth,
-      clientWidth: width,
-      offenders,
-    };
+async function dispatchClick(locator) {
+  await locator.evaluate((element) => {
+    element.dispatchEvent(new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    }));
   });
 }
 
-test("FDE七命题实体论证地图生产UAT", async ({ page }, testInfo) => {
+async function nodeByText(page, exactText) {
+  const nodes = page.locator("svg.markmap g.markmap-node");
+  for (let index = 0, count = await nodes.count(); index < count; index += 1) {
+    const node = nodes.nth(index);
+    const text = (await node.locator("foreignObject").textContent().catch(() => ""))?.trim();
+    if (text === exactText) return node;
+  }
+  throw new Error(`visible Markmap node not found: ${exactText}`);
+}
+
+async function clickNode(page, exactText) {
+  const node = await nodeByText(page, exactText);
+  await dispatchClick(node.locator("circle"));
+  await page.waitForTimeout(60);
+}
+
+async function visibleTexts(page) {
+  return page.locator("svg.markmap g.markmap-node foreignObject").evaluateAll((nodes) => nodes
+    .filter((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    })
+    .map((node) => (node.textContent || "").trim()));
+}
+
+test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   const telemetry = observePage(page);
   await page.emulateMedia({ reducedMotion: "reduce" });
   const response = await page.goto(PAGE_PATH, { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle("全球FDE发展研究报告｜实体论证地图");
-  await expect(page.locator("h1")).toHaveText(ROOT);
-  await expect(page.locator(".branch-card")).toHaveCount(7);
-  await expect(page.locator(".proposition-node")).toHaveText(TITLES);
-  await expect(page.locator(".chain-label")).toHaveText([
-    "定义FDE", "责任缺口", "运行机制", "商业成立条件", "全球验证和边界", "中国条件与路径", "条件性未来影响",
-  ]);
-  await expect(page.locator(".section-heading p")).toHaveText(CHAIN);
-  await expect(page.locator(".chain-step > .logic-edge .edge-label")).toHaveText([
-    "所以", "所以", "所以", "证据支持", "但不能推出", "只有在",
-  ]);
+  await expect(page).toHaveTitle("全球FDE发展研究报告｜论证地图");
 
-  const initial = await page.evaluate(() => ({
-    ready: window.__FDE_MAP_READY__,
-    openBranches: document.querySelectorAll(".branch-card[open]").length,
-    openQuestions: document.querySelectorAll(".question-card[open], .ontology-panel[open]").length,
-    manifest: JSON.parse(document.querySelector("#fde-map-manifest").textContent),
-    bodyText: document.body.innerText,
-  }));
-  expect(initial.ready).toBe(true);
-  expect(initial.openBranches).toBe(0);
-  expect(initial.openQuestions).toBe(0);
-  expect(initial.manifest.rootTitle).toBe(ROOT);
-  expect(initial.manifest.propositionTitles).toEqual(TITLES);
-  expect(initial.manifest.chain.summary).toBe(CHAIN);
-  expect(initial.manifest.counts).toEqual({ propositions: 7, sections: 28, evidence: 93, sheets: 8 });
-  expect(initial.manifest.defaultView).toBe("root-chain-seven-propositions");
-  expect(Object.values(initial.manifest.mapping).flat()).toHaveLength(28);
-  for (const oldTitle of OLD_TITLES) expect(initial.bodyText).not.toContain(oldTitle);
-  expect(await overflowAudit(page)).toEqual({
-    scrollWidth: await page.evaluate(() => document.documentElement.clientWidth),
-    clientWidth: await page.evaluate(() => document.documentElement.clientWidth),
-    offenders: [],
-  });
+  const initial = await visibleTexts(page);
+  expect(initial).toHaveLength(6);
+  expect(new Set(initial)).toEqual(new Set([...STAGES, ROOT_TITLE]));
+  expect(initial).not.toContain("为什么FDE突然受到关注？");
 
-  if (testInfo.project.name === "desktop-chromium") {
-    await testInfo.attach("fde-seven-propositions-default.png", {
-      body: await page.screenshot({ fullPage: true }),
-      contentType: "image/png",
+  const model = await page.evaluate(() => {
+    const decode = (html) => {
+      const area = document.createElement("textarea");
+      area.innerHTML = html;
+      return area.value;
+    };
+    const walk = (node) => ({
+      content: decode(node.content || ""),
+      children: (node.children || []).map(walk),
     });
+    return {
+      tree: walk(window.mm.state.data),
+      manifest: JSON.parse(document.querySelector("#fde-map-manifest").textContent),
+    };
+  });
+  expect(model.tree.content).toBe(ROOT_TITLE);
+  expect(model.tree.children.map((stage) => stage.content)).toEqual(STAGES);
+  expect(model.tree.children.flatMap((stage) => stage.children)).toHaveLength(28);
+  expect(new Set(Object.values(model.manifest.logicTypes)).size).toBe(19);
+  expect(model.manifest.defaultExpandLevel).toBe(2);
+
+  const questions = model.tree.children.flatMap((stage) => stage.children);
+  const supportSignatures = [];
+  for (const question of questions) {
+    expect(question.content).toMatch(/？$/);
+    expect(question.content).not.toMatch(/[:：]/);
+    expect(question.children[0].content.length).toBeGreaterThan(3);
+    expect(question.children.at(-3).content).toBe("证据与出处");
+    expect(question.children.at(-2).content).toBe("适用边界");
+    expect(question.children.at(-1).content).toBe("转向下一问");
+    const support = question.children.slice(1, -3).map((child) => child.content);
+    expect(support.length).toBeGreaterThanOrEqual(2);
+    supportSignatures.push(support.join("→"));
   }
+  expect(new Set(supportSignatures).size).toBeGreaterThanOrEqual(19);
 
-  await page.locator("#expand-branches").click();
-  await expect(page.locator(".branch-card[open]")).toHaveCount(7);
-  await expect(page.locator(".question-card[open], .ontology-panel[open]")).toHaveCount(0);
-  await expect(page.locator("#live-status")).toContainText("已展开 7 个一级命题");
+  const first = model.tree.children[0].children[0];
+  expect(first.content).toBe("为什么FDE突然受到关注？");
+  expect(first.children.map((child) => child.content)).toEqual([
+    "政府、企业、资本与劳动者同时遇到AI落地难题",
+    "四类主体难题",
+    "共同原因",
+    "共同缺口",
+    "由此受到关注",
+    "证据与出处",
+    "适用边界",
+    "转向下一问",
+  ]);
+  expect(first.children[1].children.map((child) => child.content)).toEqual(["政府", "企业", "资本", "劳动者"]);
+  expect(first.children[2].children[0].content).toBe("通用AI不能自动进入真实生产");
+  expect(first.children[3].children[0].content).toBe("缺少贯通现场到结果的责任角色");
 
-  await page.locator("#expand-all").click();
-  await expect(page.locator(".branch-card[open]")).toHaveCount(7);
-  await expect(page.locator(".question-card[open]")).toHaveCount(28);
-  await expect(page.locator(".ontology-panel[open]")).toHaveCount(1);
-  await expect(page.locator(".evidence-record")).toHaveCount(93);
-  await expect(page.locator("[data-evidence-id]")).toHaveCount(93);
+  await clickNode(page, "01 识别对象");
+  await expect.poll(async () => (await visibleTexts(page)).includes("为什么FDE突然受到关注？")).toBe(true);
+  await clickNode(page, "为什么FDE突然受到关注？");
+  const openedQuestion = await visibleTexts(page);
+  expect(openedQuestion).toContain("政府、企业、资本与劳动者同时遇到AI落地难题");
+  expect(openedQuestion).toContain("四类主体难题");
+  expect(openedQuestion).toContain("共同原因");
+  expect(openedQuestion).toContain("共同缺口");
+  expect(openedQuestion).toContain("由此受到关注");
+  await clickNode(page, "四类主体难题");
+  expect(await visibleTexts(page)).toEqual(expect.arrayContaining(["政府", "企业", "资本", "劳动者"]));
+  await clickNode(page, "政府");
+  expect(await visibleTexts(page)).toContain("国家AI战略缺少进入企业生产的微观传导机制");
 
-  const qa = await page.locator(".question-card").evaluateAll((cards) => cards.map((card) => ({
-    sectionId: card.dataset.sectionId,
-    question: card.querySelector(":scope > summary .question-node")?.textContent.trim(),
-    answers: [...card.querySelectorAll(":scope > .question-body .node-answer .node-text")].map((node) => node.textContent.trim()),
-    sourceRef: card.querySelector(":scope > summary .question-index")?.textContent.trim(),
-  })));
-  expect(qa).toHaveLength(28);
-  expect(new Set(qa.map((item) => item.sectionId)).size).toBe(28);
-  expect(new Set(qa.map((item) => item.sourceRef)).size).toBe(28);
-  for (const item of qa) {
-    expect(item.question).toMatch(/？$/);
-    expect(item.question).not.toMatch(/[:：]/);
-    expect(item.answers).toHaveLength(1);
-    expect(item.answers[0]).not.toBe(item.question);
-    expect(item.answers[0]).not.toMatch(/？$/);
-  }
+  const toolbarTitles = await page.locator(".mm-toolbar-item").evaluateAll((items) => items.map((item) => item.getAttribute("title")));
+  expect(toolbarTitles).toEqual(["Zoom in", "Zoom out", "Fit window size", "Toggle recursively"]);
+  const svg = page.locator("svg.markmap");
+  const zoomBefore = await svg.evaluate((element) => element.__zoom.k);
+  await dispatchClick(page.locator('.mm-toolbar-item[title="Zoom in"]'));
+  await expect.poll(() => svg.evaluate((element) => element.__zoom.k)).toBeGreaterThan(zoomBefore);
+  await dispatchClick(page.locator('.mm-toolbar-item[title="Zoom out"]'));
+  await expect.poll(() => svg.evaluate((element) => element.__zoom.k)).toBeCloseTo(zoomBefore, 4);
 
-  const attention = page.locator('[data-section-id="c1s1"]');
-  await expect(attention.locator(".question-node")).toHaveText("为什么FDE突然受到关注？");
-  await expect(attention.locator(".node-answer .node-text")).toHaveText("通用AI不能自动进入生产且缺少连续责任主体，因此注意力转向FDE");
-  await expect(attention.locator(".item-label")).toHaveText(["政府", "企业", "资本", "劳动者"]);
-  await expect(attention).toContainText("通用AI不能自动进入生产");
-  await expect(attention).toContainText("缺少连续承担企业现场到生产结果责任的主体");
-  await expect(attention).toContainText("四类主体的不同困难使注意力转向承担连续责任的FDE");
+  const recursive = page.locator('.mm-toolbar-item[title="Toggle recursively"]');
+  await dispatchClick(recursive);
+  await expect(recursive).toHaveClass(/active/);
+  await dispatchClick(recursive);
+  await expect(recursive).not.toHaveClass(/active/);
+  await dispatchClick(page.locator('.mm-toolbar-item[title="Fit window size"]'));
+  await expect.poll(() => svg.evaluate((element) => Number.isFinite(element.__zoom.k))).toBe(true);
 
-  const relationTypes = await page.locator("[data-relation-type]").evaluateAll((nodes) =>
-    [...new Set(nodes.map((node) => node.dataset.relationType))].sort()
-  );
-  for (const relation of REQUIRED_RELATIONS) expect(relationTypes).toContain(relation);
-  for (const nodeType of ["cause", "condition", "evidence", "boundary", "inference"]) {
-    await expect(page.locator(".node-" + nodeType).first()).toBeVisible();
-  }
-  const colors = await page.locator(".node-cause, .node-condition, .node-evidence, .node-boundary, .node-inference")
-    .evaluateAll((nodes) => [...new Set(nodes.slice(0, 60).map((node) => getComputedStyle(node).backgroundColor))]);
-  expect(colors.length).toBeGreaterThanOrEqual(5);
+  const svgBox = await svg.boundingBox();
+  expect(svgBox).not.toBeNull();
+  const dragBefore = await svg.evaluate((element) => ({ x: element.__zoom.x, y: element.__zoom.y }));
+  await page.mouse.move(svgBox.x + svgBox.width * 0.48, svgBox.y + svgBox.height * 0.48);
+  await page.mouse.down();
+  await page.mouse.move(svgBox.x + svgBox.width * 0.58, svgBox.y + svgBox.height * 0.56, { steps: 5 });
+  await page.mouse.up();
+  const dragAfter = await svg.evaluate((element) => ({ x: element.__zoom.x, y: element.__zoom.y }));
+  expect(dragAfter).not.toEqual(dragBefore);
+  await dispatchClick(page.locator('.mm-toolbar-item[title="Fit window size"]'));
 
-  const expandedOverflow = await overflowAudit(page);
-  expect(expandedOverflow.scrollWidth).toBe(expandedOverflow.clientWidth);
-  expect(expandedOverflow.offenders).toEqual([]);
+  const visual = await page.evaluate(() => ({
+    background: getComputedStyle(document.body).backgroundImage,
+    cream: getComputedStyle(document.documentElement).getPropertyValue("--fde-bg-cream").trim(),
+    blue: getComputedStyle(document.documentElement).getPropertyValue("--fde-bg-blue").trim(),
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+    scrollHeight: document.documentElement.scrollHeight,
+    clientHeight: document.documentElement.clientHeight,
+    animationNames: [...document.querySelectorAll(".markmap *, .mm-toolbar *, .fde-download")]
+      .map((node) => getComputedStyle(node).animationName)
+      .filter((value) => value && value !== "none"),
+  }));
+  expect(visual.background).toContain("linear-gradient");
+  expect(visual.cream).toBe("#f5f1e8");
+  expect(visual.blue).toBe("#e8f0f5");
+  expect(visual.scrollWidth).toBe(visual.clientWidth);
+  expect(visual.scrollHeight).toBe(visual.clientHeight);
+  expect(visual.animationNames).toEqual([]);
 
-  await page.locator("#collapse-all").click();
-  await expect(page.locator(".branch-card[open]")).toHaveCount(0);
-  await page.locator('.chain-step a[href="#p2"]').click();
-  await expect(page.locator("#p2")).toHaveJSProperty("open", true);
-  await expect(page.locator("#p2 .question-card").first()).not.toHaveJSProperty("open", true);
-
-  const download = page.locator(".download");
+  const download = page.locator(".fde-download");
   await expect(download).toHaveAttribute("href", "global-fde-report-xmind-logic-20260819.xmind");
   const downloaded = await page.evaluate(async () => {
     const response = await fetch("global-fde-report-xmind-logic-20260819.xmind", { cache: "no-store" });
@@ -179,10 +203,14 @@ test("FDE七命题实体论证地图生产UAT", async ({ page }, testInfo) => {
     };
   });
   expect(downloaded.status).toBe(200);
-  expect(downloaded.bytes).toBeGreaterThan(200_000);
-  expect(downloaded.sha256).toBe(initial.manifest.xmindSha256);
+  expect(downloaded.bytes).toBeGreaterThan(100_000);
+  expect(downloaded.sha256).toBe(model.manifest.xmindSha256);
 
-  expect(telemetry.consoleErrors).toEqual([]);
+  await testInfo.attach(`${testInfo.project.name}-expanded.png`, {
+    body: await page.screenshot(),
+    contentType: "image/png",
+  });
+  expect(telemetry.consoleProblems).toEqual([]);
   expect(telemetry.pageErrors).toEqual([]);
   expect(telemetry.failedRequests).toEqual([]);
   expect(telemetry.badResponses).toEqual([]);

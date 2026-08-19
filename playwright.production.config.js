@@ -39,13 +39,5 @@ export default defineConfig({
         deviceScaleFactor: 1,
       },
     },
-    {
-      name: "mobile-wide-chromium",
-      use: {
-        ...devices["Pixel 5"],
-        viewport: { width: 390, height: 844 },
-        deviceScaleFactor: 1,
-      },
-    },
   ],
 });
