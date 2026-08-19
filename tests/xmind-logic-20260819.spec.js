@@ -3,13 +3,28 @@ import { expect, test } from "@playwright/test";
 const PAGE_PATH = "/xmind-logic-20260819/";
 const ROOT_TITLE = "全球FDE发展研究报告";
 const TOTAL_QUESTION = "FDE能否成为AI进入企业生产的有效且可持续模式？";
-const BRANCH_QUESTIONS = [
+const CHAPTER_TITLES = [
+  "第一章｜FDE的概念边界",
+  "第二章｜FDE热潮的真实性",
+  "第三章｜FDE模式的有效性",
+  "第四章｜FDE在中国的适用性",
+  "第五章｜FDE的条件性影响",
+];
+const CHAPTER_QUESTIONS = [
   "FDE究竟是什么，如何与既有岗位区分？",
   "全球FDE热潮是否对应真实、独立的FDE实践？",
   "FDE通过什么机制产生结果，又在什么条件下失效？",
   "FDE在中国能否形成可复制、经济可持续的模式？",
   "若前述检验成立，FDE可能带来哪些产业与劳动影响？",
 ];
+const CHAPTER_THESES = [
+  "本报告所称FDE，不由岗位名称或驻场形式定义，而由真实现场、共同验收、生产交付、持续迭代四项责任是否由同一责任单元连续承担来识别。",
+  "热潮并非纯粹换名：岗位、组织、客户交付与经营资料表明连续责任已经进入现实实践；但现有证据只能证明FDE存在并扩散，不能证明它已在全球普遍规模化。",
+  "FDE把行业判断、AI执行与生产工程接入同一连续责任和验收闭环，并通过跨项目资产复用降低边际成本；只有结果可验收、系统可运行、资产可复用、客户可接管且单位经济成立时，它才是一种有效模式。",
+  "中国同时存在复杂产业、隐性知识、历史系统等适配需求，以及软件服务、行业专家、产业集群和AI执行能力等供给基础；但FDE只有完成行业资产沉淀、内外部供给互补、集群交易降本和人才采购评价协同后，才可能形成可复制模式。",
+  "若真实性、有效性和中国适用性都能被持续数据验证，FDE可能重组软件供给、职业分工与企业生产率传导；在此之前，岗位增长、收入改善和高质量发展都只能作为待验证的条件性推论。",
+];
+const CHAPTER_STRUCTURE = ["本章总问题", "本章总论点", "本章子问题与论证", "本章证据边界", "推向下一章"];
 const REMOVED_GENERIC_LABELS = [
   "01 识别对象",
   "02 解释成立机制",
@@ -82,7 +97,7 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
 
   const initial = await visibleTexts(page);
   expect(initial).toHaveLength(7);
-  expect(new Set(initial)).toEqual(new Set([ROOT_TITLE, TOTAL_QUESTION, ...BRANCH_QUESTIONS]));
+  expect(new Set(initial)).toEqual(new Set([ROOT_TITLE, TOTAL_QUESTION, ...CHAPTER_TITLES]));
   expect(initial).not.toContain("为什么FDE突然受到关注？");
 
   const model = await page.evaluate(() => {
@@ -103,31 +118,33 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   expect(model.tree.content).toBe(ROOT_TITLE);
   expect(model.tree.children).toHaveLength(1);
   expect(model.tree.children[0].content).toBe(TOTAL_QUESTION);
-  expect(model.tree.children[0].children.map((branch) => branch.content)).toEqual(BRANCH_QUESTIONS);
-  expect(model.tree.children[0].children.map((branch) => branch.content)).not.toEqual(expect.arrayContaining(REMOVED_GENERIC_LABELS));
+  expect(model.tree.children[0].children.map((chapter) => chapter.content)).toEqual(CHAPTER_TITLES);
+  expect(model.tree.children[0].children.map((chapter) => chapter.content)).not.toEqual(expect.arrayContaining(REMOVED_GENERIC_LABELS));
   expect(model.manifest.researchQuestion).toBe(TOTAL_QUESTION);
-  expect(model.manifest.branchQuestions).toEqual(BRANCH_QUESTIONS);
-  expect(model.manifest.branchRoles).toEqual(["prerequisite", "test", "test", "test", "conditional_inference"]);
+  expect(model.manifest.chapterTitles).toEqual(CHAPTER_TITLES);
+  expect(model.manifest.chapterQuestions).toEqual(CHAPTER_QUESTIONS);
+  expect(model.manifest.chapterTheses).toEqual(CHAPTER_THESES);
+  expect(model.manifest.chapterRoles).toEqual(["prerequisite", "test", "test", "test", "conditional_inference"]);
+  expect(model.manifest.chapterStructure).toEqual(CHAPTER_STRUCTURE);
   expect(model.manifest.questionCount).toBe(28);
   expect(model.manifest.evidenceCount).toBe(93);
   expect(new Set(Object.values(model.manifest.logicTypes)).size).toBe(19);
   expect(model.manifest.defaultExpandLevel).toBe(3);
 
-  const branches = model.tree.children[0].children;
-  for (const branch of branches) {
-    expect(branch.children[0].content).toBe("直接回答");
-    expect(branch.children[1].content).toBe("判断标准");
-    expect(branch.children.at(-2).content).toBe("本分支证据边界");
-    expect(branch.children.at(-1).content).toBe("推向下一问");
+  const chapters = model.tree.children[0].children;
+  for (const [index, chapter] of chapters.entries()) {
+    expect(chapter.children.map((child) => child.content)).toEqual(CHAPTER_STRUCTURE);
+    expect(chapter.children[0].children[0].content).toBe(CHAPTER_QUESTIONS[index]);
+    expect(chapter.children[1].children[0].content).toBe(CHAPTER_THESES[index]);
+    expect(chapter.children[3].children.map((child) => child.content)).toEqual(["成立标准", "不能推出"]);
   }
-  const questions = branches.flatMap((branch) => branch.children.filter((child) =>
-    child.content.endsWith("？") && !BRANCH_QUESTIONS.includes(child.content)));
+  const questions = chapters.flatMap((chapter) => chapter.children[2].children);
   expect(questions).toHaveLength(28);
   const supportSignatures = [];
   for (const question of questions) {
     expect(question.content).toMatch(/？$/);
     expect(question.content).not.toMatch(/[:：]/);
-    expect(question.children[0].content).toBe("直接回答");
+    expect(question.children[0].content).toBe("小节结论");
     expect(question.children[0].children[0].content.length).toBeGreaterThan(3);
     expect(question.children.at(-2).content).toBe("证据");
     expect(question.children.at(-1).content).toBe("适用边界");
@@ -137,10 +154,10 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   }
   expect(new Set(supportSignatures).size).toBeGreaterThanOrEqual(19);
 
-  const first = branches[1].children.find((child) => child.content === "为什么FDE突然受到关注？");
+  const first = chapters[1].children[2].children.find((child) => child.content === "为什么FDE突然受到关注？");
   expect(first.content).toBe("为什么FDE突然受到关注？");
   expect(first.children.map((child) => child.content)).toEqual([
-    "直接回答",
+    "小节结论",
     "四类主体难题",
     "共同原因",
     "共同缺口",
@@ -153,11 +170,18 @@ test("FDE论证地图双形态真实UAT", async ({ page }, testInfo) => {
   expect(first.children[2].children[0].content).toBe("通用AI不能自动进入生产");
   expect(first.children[3].children[0].content).toBe("缺少连续承担企业现场到生产结果责任的主体");
 
-  await clickNode(page, BRANCH_QUESTIONS[1]);
+  await clickNode(page, CHAPTER_TITLES[1]);
+  await expect.poll(async () => (await visibleTexts(page)).includes("本章总问题")).toBe(true);
+  await expect.poll(async () => (await visibleTexts(page)).includes("本章总论点")).toBe(true);
+  await clickNode(page, "本章总问题");
+  await expect.poll(async () => (await visibleTexts(page)).includes(CHAPTER_QUESTIONS[1])).toBe(true);
+  await clickNode(page, "本章总论点");
+  await expect.poll(async () => (await visibleTexts(page)).includes(CHAPTER_THESES[1])).toBe(true);
+  await clickNode(page, "本章子问题与论证");
   await expect.poll(async () => (await visibleTexts(page)).includes("为什么FDE突然受到关注？")).toBe(true);
   await clickNode(page, "为什么FDE突然受到关注？");
   const openedQuestion = await visibleTexts(page);
-  expect(openedQuestion).toContain("直接回答");
+  expect(openedQuestion).toContain("小节结论");
   expect(openedQuestion).toContain("四类主体难题");
   expect(openedQuestion).toContain("共同原因");
   expect(openedQuestion).toContain("共同缺口");
