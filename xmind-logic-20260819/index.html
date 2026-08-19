@@ -1847,10 +1847,13 @@
       ? event.target.closest(".mm-toolbar-item")
       : null;
     const title = item?.getAttribute("title");
-    if (!window.mm || !["Zoom in", "Zoom out", "Fit window size"].includes(title)) return;
+    if (!window.mm || !["Zoom in", "Zoom out", "Fit window size", "Toggle recursively"].includes(title)) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    if (title === "Fit window size") window.mm.fit();
+    if (title === "Toggle recursively") {
+      const active = item.classList.toggle("active");
+      window.mm.setOptions({ toggleRecursively: active });
+    } else if (title === "Fit window size") window.mm.fit();
     else window.mm.rescale(title === "Zoom in" ? 1.25 : 0.8);
   }, true);
 })();
